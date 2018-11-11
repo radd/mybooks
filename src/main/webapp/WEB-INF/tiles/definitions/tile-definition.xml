@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="baseLayout" template="/WEB-INF/tiles/template/baseLayout.jsp">
+		<put-attribute name="title" value="Przykładowy tytuł" />
+		<put-attribute name="heading" value="" />
+		<put-attribute name="tagline" value="" />
+		<put-attribute name="navigation" value="/WEB-INF/tiles/template/navigation.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/WEB-INF/tiles/template/footer.jsp" />
+	</definition>
+
+	<definition name="home" extends="baseLayout">
+		<put-attribute name="title" value="Produkty" />
+		<put-attribute name="heading" value="Produkty" />
+		<put-attribute name="tagline" value="Dostępne produkty" />
+		<put-attribute name="content" value="/WEB-INF/views/home.jsp" />
+	</definition>
+
+	<definition name="foo" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/foo.jsp" />
+	</definition>
+
+	<definition name="admin" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/admin.jsp" />
+	</definition>
+
+	<definition name="login" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/login.jsp" />
+	</definition>
+
+	<definition name="signup" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/signup.jsp" />
+	</definition>
+
+
+
+</tiles-definitions>
