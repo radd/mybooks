@@ -35,7 +35,7 @@ public class UserSingUpServiceImpl {
                     "There is an account with that email address");
         }
         User user = new User();
-        user.setName(accountDto.getName());
+        user.setFirstName(accountDto.getName());
         user.setLastName(accountDto.getLastName());
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         user.setEmail(accountDto.getEmail());

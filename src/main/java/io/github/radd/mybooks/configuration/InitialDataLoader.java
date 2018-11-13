@@ -40,10 +40,11 @@ public class InitialDataLoader implements
 
         createRoleIfNotFound("ROLE_ADMIN");
         createRoleIfNotFound("ROLE_USER");
+        createRoleIfNotFound("ROLE_MODERATOR");
 
         Role adminRole = roleRepository.findByName("ROLE_ADMIN");
         User user = new User();
-        user.setName("Test");
+        user.setDisplayName("Test");
         user.setLastName("Test");
         user.setPassword(passwordEncoder.encode("test"));
         user.setEmail("test@test.com");

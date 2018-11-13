@@ -18,16 +18,11 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
 
-	public Role() {
-        super();
-    }
+	public Role() { }
 
     public Role(final String name) {
-        super();
         this.name = name;
     }
-
-//	
 
 	public Long getId() {
         return id;
