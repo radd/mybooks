@@ -1,5 +1,6 @@
 package io.github.radd.mybooks.domain.dto;
 
+import io.github.radd.mybooks.validator.EmailExists;
 import io.github.radd.mybooks.validator.PasswordMatches;
 
 import javax.validation.constraints.Email;
@@ -20,6 +21,7 @@ public class UserSignUpDTO {
     @Email(message = "{UserSignUp.email.Email}")
     @NotNull
     @NotEmpty(message = "{UserSignUp.email.NotEmpty}")
+    @EmailExists
     private String email;
 
     @NotNull
