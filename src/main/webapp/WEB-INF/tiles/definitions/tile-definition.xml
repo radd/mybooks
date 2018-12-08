@@ -44,6 +44,10 @@
 		<put-attribute name="content" value="/WEB-INF/views/authors.jsp" />
 	</definition>
 
+	<definition name="addTag" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/addTag.jsp" />
+	</definition>
+
 
 
 </tiles-definitions>
