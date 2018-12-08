@@ -23,6 +23,7 @@ public class Category {
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
+    @OrderBy("name ASC")
     private Collection<Category> children;
 
     public Category() {

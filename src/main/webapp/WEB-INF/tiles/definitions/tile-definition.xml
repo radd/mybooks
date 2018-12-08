@@ -48,6 +48,10 @@
 		<put-attribute name="content" value="/WEB-INF/views/addTag.jsp" />
 	</definition>
 
+	<definition name="addCat" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/addCat.jsp" />
+	</definition>
+
 
 
 </tiles-definitions>
