@@ -24,10 +24,6 @@ public class Author {
     private LocalDate dateOfBirth;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
-    private Book book;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -76,14 +72,6 @@ public class Author {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
     public User getUser() {
         return user;
     }
@@ -122,5 +110,9 @@ public class Author {
 
     public void setBooks(Collection<Book> books) {
         this.books = books;
+    }
+
+    public String getDisplayName() {
+        return (firstName + " " + lastName).trim();
     }
 }

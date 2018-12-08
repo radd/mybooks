@@ -36,6 +36,14 @@
 		<put-attribute name="content" value="/WEB-INF/views/signup.jsp" />
 	</definition>
 
+	<definition name="addAuthor" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/addAuthor.jsp" />
+	</definition>
+
+	<definition name="authors" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/authors.jsp" />
+	</definition>
+
 
 
 </tiles-definitions>

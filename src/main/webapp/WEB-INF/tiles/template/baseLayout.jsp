@@ -15,10 +15,10 @@
 	<title>${title}</title>
 
 	<!-- Bootstrap core CSS -->
-	<link href="<c:url value="theme/lib/bootstrap/css/bootstrap.min.css" />" rel="stylesheet" >
+	<link href="/mybooks/theme/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
 
 	<!-- Custom styles for this template -->
-	<link href="<c:url value="theme/css/style.css" />" rel="stylesheet">
+	<link href="/mybooks/theme/css/style.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navigation -->
@@ -57,8 +57,8 @@
 
 
 <!-- Bootstrap core JavaScript -->
-<script src="<c:url value="theme/lib/jquery/jquery.min.js" /> "></script>
-<script src="<c:url value="theme/lib/bootstrap/js/bootstrap.min.js" />"></script>
+<script src="/mybooks/theme/lib/jquery/jquery.min.js"></script>
+<script src="/mybooks/theme/lib/bootstrap/js/bootstrap.min.js"></script>
 
 
 
