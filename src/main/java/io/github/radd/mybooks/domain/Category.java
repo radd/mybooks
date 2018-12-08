@@ -18,7 +18,8 @@ public class Category {
     @Column(name = "book_count")
     private Long bookCount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
 
