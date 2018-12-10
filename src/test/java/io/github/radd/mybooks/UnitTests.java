@@ -35,7 +35,8 @@ public class UnitTests {
 
         user.setRoles(Arrays.asList(adminRole));
 
-        UserInfo userInfo = new UserInfo(user, UserInfo.UserGrantedAuthorities.getAuthorities(user.getRoles()));
+        UserInfo userInfo = new UserInfo(user, user.getEmail(), user.getPassword(),
+                UserInfo.UserGrantedAuthorities.getAuthorities(user.getRoles()));
 
         assertTrue(userInfo.isAdmin());
         assertFalse(userInfo.isModerator());
@@ -57,10 +58,22 @@ public class UnitTests {
 
         user.setRoles(Arrays.asList(adminRole, moderatorRole, userRole));
 
-        UserInfo userInfo = new UserInfo(user, UserInfo.UserGrantedAuthorities.getAuthorities(user.getRoles()));
+        UserInfo userInfo = new UserInfo(user, user.getEmail(), user.getPassword(),
+                UserInfo.UserGrantedAuthorities.getAuthorities(user.getRoles()));
 
         assertEquals(userInfo.getAllUserRoles(), UserRole.ADMIN.getName() + " " + UserRole.MODERATOR.getName() + " " + UserRole.USER.getName());
 
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void userInfo_constructor_IllegalArgumentException() {
+        UserInfo userInfo = new UserInfo(null, "", "", Arrays.asList());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void userInfo_setUser_IllegalArgumentException() {
+        UserInfo userInfo = new UserInfo(new User(), "", "", Arrays.asList());
+        userInfo.setUser(null);
     }
 
 

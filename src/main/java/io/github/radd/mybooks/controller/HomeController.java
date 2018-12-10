@@ -30,10 +30,13 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String loginPage(@RequestParam(value = "error", required = false) String error, Model model) {
-
+    public String loginPage(@RequestParam(value = "error", required = false) String error, Model model, HttpServletRequest request) {
         if (error != null) {
             model.addAttribute("errorMsg", "Email or password is invalid");
+        }
+        else {
+            String referrer = request.getHeader("Referer");
+            request.getSession().setAttribute("previousURL", referrer);
         }
         return "login";
     }

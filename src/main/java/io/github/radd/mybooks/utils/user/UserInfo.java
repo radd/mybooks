@@ -4,7 +4,9 @@ import io.github.radd.mybooks.domain.Role;
 import io.github.radd.mybooks.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.util.Assert;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,10 +23,9 @@ public class UserInfo extends org.springframework.security.core.userdetails.User
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 
-    public UserInfo(User user, Collection<? extends GrantedAuthority> authorities) {
-        super(user.getEmail(), user.getPassword(), true, true, true, true, authorities);
-        this.user = user;
-        init();
+    public UserInfo(User user, String username, String password, Collection<? extends GrantedAuthority> authorities) throws IllegalArgumentException {
+        super(username, password, true, true, true, true, authorities);
+        setUser(user);
     }
 
     //For GrantedAuthorities - hasRole(), hasAuthority() - spring method
@@ -40,7 +41,6 @@ public class UserInfo extends org.springframework.security.core.userdetails.User
 
     private void init() {
     }
-
 
     public boolean isAdmin() {
         return user.getRoles().stream().anyMatch(r -> r.getName().equals(UserRole.ADMIN.getName()));
@@ -62,5 +62,10 @@ public class UserInfo extends org.springframework.security.core.userdetails.User
 
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        Assert.notNull(user, "Null argument");
+        this.user = user;
     }
 }

@@ -29,19 +29,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         super();
     }
 
-    // API
-    @Autowired
-    private HttpServletRequest request;
-
     @Override
-    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException, IllegalArgumentException {
         try {
             System.out.println("" + email);
             final User user = userRepository.findByEmail(email);
             if (user == null) {
                 throw new UsernameNotFoundException("No user found with username: " + email);
             }
-            return new UserInfo(user, UserInfo.UserGrantedAuthorities.getAuthorities(user.getRoles()));
+            return new UserInfo(user, user.getEmail(), user.getPassword(), UserInfo.UserGrantedAuthorities.getAuthorities(user.getRoles()));
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }

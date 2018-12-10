@@ -1,5 +1,9 @@
 package io.github.radd.mybooks.configuration;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,9 +13,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -31,22 +39,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.
-                authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/login").anonymous()
-                .antMatchers("/signup").anonymous()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/login").anonymous()
-                .antMatchers("/**").permitAll()
-                .and().csrf().disable().formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/admin")
+        http
+                .authorizeRequests()
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/userpage").authenticated()
+                .and()
+                .csrf().disable()
+                .anonymous().disable()
+                .formLogin()
+                    .loginPage("/login")
+                    .successHandler(new CustomLoginSuccessHandler("/admin"))
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").and().exceptionHandling()
-                .accessDeniedPage("/access-denied");
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/access-denied");
     }
 
     @Override
@@ -55,8 +64,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/resources/**", "/theme/**", "/static/**", "/css/**", "/js/**", "/images/**", "/lib/**");
     }
-
-
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -68,5 +75,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
+
+    class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+
+        public CustomLoginSuccessHandler(String defaultSuccessUrl) {
+            setDefaultTargetUrl(defaultSuccessUrl);
+        }
+
+        @Override
+        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
+            HttpSession session = request.getSession();
+            if (session != null) {
+                Object savedRequest = session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+                String redirectUrl = (String) session.getAttribute("previousURL");
+                if (savedRequest == null && redirectUrl != null ) {
+                    session.removeAttribute("previousURL");
+                    getRedirectStrategy().sendRedirect(request, response, redirectUrl);
+                    //TODO if admin and redirectUrl is homePage then redirect to admin panel
+                } else {
+                    super.onAuthenticationSuccess(request, response, authentication);
+                }
+            } else {
+                super.onAuthenticationSuccess(request, response, authentication);
+            }
+        }
+    }
+
+
 
 }
