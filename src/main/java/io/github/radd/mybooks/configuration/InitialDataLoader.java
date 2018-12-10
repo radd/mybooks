@@ -4,6 +4,7 @@ import io.github.radd.mybooks.domain.Role;
 import io.github.radd.mybooks.domain.User;
 import io.github.radd.mybooks.domain.repository.RoleRepository;
 import io.github.radd.mybooks.domain.repository.UserRepository;
+import io.github.radd.mybooks.utils.user.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -38,11 +39,11 @@ public class InitialDataLoader implements
         if (alreadySetup)
             return;
 
-        createRoleIfNotFound("ROLE_ADMIN");
-        createRoleIfNotFound("ROLE_USER");
-        createRoleIfNotFound("ROLE_MODERATOR");
+        createRoleIfNotFound(UserRole.ADMIN.getName());
+        createRoleIfNotFound(UserRole.USER.getName());
+        createRoleIfNotFound(UserRole.MODERATOR.getName());
 
-        Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+        Role adminRole = roleRepository.findByName(UserRole.ADMIN.getName());
         User user = new User();
         user.setDisplayName("Test");
         user.setLastName("Test");

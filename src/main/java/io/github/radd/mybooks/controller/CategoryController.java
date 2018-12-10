@@ -63,7 +63,7 @@ public class CategoryController {
             model.addAttribute("catName", category.getName());
             model.addAttribute("cat", new CategoryDTO());
         }
-
+        System.out.println("check3");
         return "addCat";
     }
 
@@ -75,6 +75,14 @@ public class CategoryController {
             return null;
         }
         return cat;
+    }
+
+    @GetMapping("/cat/edit")
+    public String editPage(Model model) {
+        model.addAttribute("title", "Edit new category");
+        model.addAttribute("cat", new CategoryDTO());
+
+        return "addCat";
     }
 
 }

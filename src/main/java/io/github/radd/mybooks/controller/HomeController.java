@@ -1,6 +1,7 @@
 package io.github.radd.mybooks.controller;
 
 import io.github.radd.mybooks.exception.UserNotFoundException;
+import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -52,16 +53,16 @@ public class HomeController {
     @RequestMapping("/userpage")
     public String userPage(Model model, Authentication authentication) {
 
-        if (!authentication.isAuthenticated())
+        if (authentication == null || !authentication.isAuthenticated())
             return "foo";
 
-        User loginedUser = (User) authentication.getPrincipal();
+        UserInfo user = (UserInfo) authentication.getPrincipal();
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("UserName:").append(loginedUser.getUsername());
+        sb.append("UserName:").append(user.getUsername());
 
-        Collection<GrantedAuthority> authorities = loginedUser.getAuthorities();
+        Collection<GrantedAuthority> authorities = user.getAuthorities();
         if (authorities != null && !authorities.isEmpty()) {
             sb.append(" (");
             boolean first = true;
@@ -75,6 +76,9 @@ public class HomeController {
             }
             sb.append(")");
         }
+
+        sb.append(" new: " + user.getAllUserRoles());
+
 
         model.addAttribute("greeting", sb.toString());
 
