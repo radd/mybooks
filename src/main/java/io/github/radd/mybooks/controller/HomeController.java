@@ -1,7 +1,9 @@
 package io.github.radd.mybooks.controller;
 
 import io.github.radd.mybooks.exception.UserNotFoundException;
+import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.user.UserInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -49,14 +51,16 @@ public class HomeController {
         return "login";
     }
 
+    @Autowired
+    AuthUser auth;
 
     @RequestMapping("/userpage")
-    public String userPage(Model model, Authentication authentication) {
+    public String userPage(Model model) {
 
-        if (authentication == null || !authentication.isAuthenticated())
+        if (!auth.isLoggedIn())
             return "foo";
 
-        UserInfo user = (UserInfo) authentication.getPrincipal();
+        UserInfo user = auth.getUserInfo();
 
         StringBuilder sb = new StringBuilder();
 
@@ -78,6 +82,9 @@ public class HomeController {
         }
 
         sb.append(" new: " + user.getAllUserRoles());
+
+        if(user.isAdmin())
+            sb.append("| Admin");
 
 
         model.addAttribute("greeting", sb.toString());

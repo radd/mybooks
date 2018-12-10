@@ -12,7 +12,6 @@ import java.util.List;
 public class UserInfo extends org.springframework.security.core.userdetails.User {
 
     private User user;
-    private List<UserRole> userRoles = new ArrayList<>();
 
     public UserInfo(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
@@ -40,29 +39,21 @@ public class UserInfo extends org.springframework.security.core.userdetails.User
     }
 
     private void init() {
-        setUserRoles();
     }
 
-    private void setUserRoles() {
-        for(GrantedAuthority ga : getAuthorities()) {
-            UserRole role = UserRole.getUserRole(ga.getAuthority());
-            if(role != null)
-                userRoles.add(role);
-        }
-    }
 
     public boolean isAdmin() {
-        return userRoles.contains(UserRole.ADMIN);
+        return user.getRoles().stream().anyMatch(r -> r.getName().equals(UserRole.ADMIN.getName()));
     }
 
     public boolean isModerator() {
-        return userRoles.contains(UserRole.MODERATOR);
+        return user.getRoles().stream().anyMatch(r -> r.getName().equals(UserRole.MODERATOR.getName()));
     }
 
     public String getAllUserRoles() {
         String output = "";
 
-        for(UserRole role : userRoles)
+        for(Role role : user.getRoles())
             output += role.getName() + " ";
 
         return output.trim();

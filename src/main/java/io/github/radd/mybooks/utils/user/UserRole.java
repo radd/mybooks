@@ -7,7 +7,7 @@ public enum UserRole {
 
     private String roleName = "";
 
-    private UserRole(String name){
+    UserRole(String name){
         this.roleName = name;
     }
 
@@ -17,16 +17,5 @@ public enum UserRole {
 
     public String getName() {
         return roleName;
-    }
-
-    public static UserRole getUserRole(String name) {
-        UserRole role = null;
-        for(UserRole r : UserRole.values()) {
-            if(r.is(name)) {
-                role = r;
-                break;
-            }
-        }
-        return role;
     }
 }
