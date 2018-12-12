@@ -11,3 +11,30 @@ body {
 .card {
   height: 100%;
 }
+
+
+#authorList {
+  width: 100%;
+
+}
+
+#authorList .author {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  padding: 5px 5px;
+}
+
+#authorList .author .name {
+  width: 100%;
+}
+
+#authorList .author .action {
+  width: 100px;
+  text-align: right;
+}
+
+#newAuthorForm {
+    display: none;
+}

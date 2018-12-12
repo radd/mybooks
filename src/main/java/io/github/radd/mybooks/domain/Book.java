@@ -13,7 +13,7 @@ public class Book {
     @Column(name = "book_id")
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "book_author",
             joinColumns = @JoinColumn(
                     name = "book_id", referencedColumnName = "book_id"),
@@ -43,6 +43,9 @@ public class Book {
     private String originalTitle;
 
     private Float stars;
+
+    @Column(name = "rating_count")
+    private Integer ratingCount;
 
     @Column(name = "create_date")
     private LocalDateTime createDate;

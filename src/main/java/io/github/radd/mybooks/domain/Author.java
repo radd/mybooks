@@ -33,7 +33,7 @@ public class Author {
 
     private String slug;
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
     private Collection<Book> books;
 
 

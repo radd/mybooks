@@ -63,4 +63,6 @@ public class AuthorDTO {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+
 }

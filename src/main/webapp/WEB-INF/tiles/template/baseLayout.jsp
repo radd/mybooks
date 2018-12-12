@@ -19,6 +19,11 @@
 
 	<!-- Custom styles for this template -->
 	<link href="/mybooks/theme/css/style.css" rel="stylesheet">
+	<!-- Bootstrap core JavaScript -->
+	<script src="/mybooks/theme/lib/jquery/jquery.min.js"></script>
+	<script src="/mybooks/theme/lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/mybooks/theme/lib/lodash/lodash.min.js"></script>
+
 </head>
 <body>
 <!-- Navigation -->
@@ -56,9 +61,6 @@
 <tiles:insertAttribute name="footer" />
 
 
-<!-- Bootstrap core JavaScript -->
-<script src="/mybooks/theme/lib/jquery/jquery.min.js"></script>
-<script src="/mybooks/theme/lib/bootstrap/js/bootstrap.min.js"></script>
 
 
 
