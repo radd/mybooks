@@ -74,7 +74,7 @@ public class BookController {
     }*/
 
     @PostMapping("/book/add")
-    public String addBook(@ModelAttribute("tag") @Valid BookDTO bookDto,
+    public String addBook(@ModelAttribute("book") @Valid BookDTO bookDto,
                          BindingResult result, HttpServletRequest req, Model model) {
         Book newBook = null;
         model.addAttribute("added", false);
