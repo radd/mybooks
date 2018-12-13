@@ -38,8 +38,7 @@
                     <div id="authorList" class="list_option"></div>
 
 
-                </div>
-                <div class="form-group">
+
                     <button type="button" id="newAuthorBtn" class="btn btn-link">Nowy autor</button>
                     <div id="newAuthorForm" class="input-group">
                         <input type="text" id="add_new_author_name" class="form-control" placeholder="First name">
@@ -72,7 +71,7 @@ $(function() {
 
         }
 
-        console.log(id + " " + name);
+        //console.log(id + " " + name);
     });
 
     function addAuthor(id, name) {
@@ -84,7 +83,7 @@ $(function() {
             authors += id + ",";
             $('#authors').val(authors);
             $('#authors').attr('value', authors);
-            console.log(authors);
+            //console.log(authors);
 
             authorListAppend(id, name);
 
@@ -110,7 +109,7 @@ $(function() {
         $('#authors').val(authors);
         $('#authors').attr('value', authors);
 
-        console.log(id);
+        //console.log(id);
     });
 
     $("#newAuthorBtn").click(function () {
@@ -132,18 +131,46 @@ $(function() {
       var name = $('#add_new_author_name').val();
       var lastname = $('#add_new_author_lastname').val();
       if(name != '') {
-          addAuthor(24, name + " " + lastname);
 
-          $("#newAuthorForm").css("display", "none");
-          $("#newAuthorBtn").text("Nowy autor");
+          var author = {
+              firstName: name,
+              lastName: lastname
+          }
+           // console.log(JSON.stringify(author));
 
-          $('#add_new_author_name').val("");
-          $('#add_new_author_name').attr('value', "");
-          $('#add_new_author_lastname').val("");
-          $('#add_new_author_lastname').attr('value', "");
+
+          $.ajax({
+              url: 'http://localhost:8080/mybooks/api/author/add',
+              type: 'post',
+              dataType: 'json',
+              contentType: 'application/json',
+              data: JSON.stringify(author)
+          }).done(addAuthorRes)
+              .fail(function(e) {
+                console.log("ERROR: ", e);
+              }
+          );
       }
 
     });
+
+    function addAuthorRes (res) {
+        //console.log(res);
+        if(res.status === "done"){
+           // console.log(res.data.id);
+
+            addAuthor(res.data.id, res.data.firstName + " " + res.data.lastName);
+
+            $("#newAuthorForm").css("display", "none");
+            $("#newAuthorBtn").text("Nowy autor");
+
+            $('#add_new_author_name').val("");
+            $('#add_new_author_name').attr('value', "");
+            $('#add_new_author_lastname').val("");
+            $('#add_new_author_lastname').attr('value', "");
+        }
+
+    }
 
 
     function showAuthors() {

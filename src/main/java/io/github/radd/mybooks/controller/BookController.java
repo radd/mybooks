@@ -80,7 +80,7 @@ public class BookController {
         model.addAttribute("added", false);
 
         if (!result.hasErrors()) {
-            newBook = addBook(bookDto);
+            newBook = bookService.addBook(bookDto);
         }
         if (newBook != null) {
             model.addAttribute("added", true);
@@ -92,13 +92,4 @@ public class BookController {
         return "addBook";
     }
 
-    private Book addBook(BookDTO bookDto) {
-        Book book = null;
-        try {
-            book = bookService.addBook(bookDto);
-        } catch (Exception e) {
-            return null;
-        }
-        return book;
-    }
 }

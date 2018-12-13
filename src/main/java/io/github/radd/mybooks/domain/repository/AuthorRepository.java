@@ -13,4 +13,11 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     //List<Author> findByFirstNameContaining(String name);
 
     List<Author> findAllByOrderByLastNameAscFirstNameAsc();
+
+    List<Author> findByIdIn(List<Long> ids);
+
+/*    List<Author> findAll(Iterable<Integer> ids);
+
+    @Query("SELECT l1 FROM Location l1 WHERE l1.node.id IN :ids")
+    List<Location> findLocationsByNodeIds(@Param("ids") Set<String> ids);*/
 }

@@ -2,11 +2,13 @@ package io.github.radd.mybooks;
 
 import io.github.radd.mybooks.domain.Role;
 import io.github.radd.mybooks.domain.User;
+import io.github.radd.mybooks.service.impl.BookService;
 import io.github.radd.mybooks.utils.user.UserInfo;
 import io.github.radd.mybooks.utils.user.UserRole;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -75,6 +77,16 @@ public class UnitTests {
         UserInfo userInfo = new UserInfo(new User(), "", "", Arrays.asList());
         userInfo.setUser(null);
     }
+
+/*    @Test
+    public void aa() {
+        BookService bookService = new BookService();
+        List<Long> ids = bookService.getIDsFromString(",1dd,4,6da,,,dnjdbjd,8,");
+        assertArrayEquals(new Long[]{4,8}, ids.toArray());
+
+    }*/
+
+
 
 
 }
