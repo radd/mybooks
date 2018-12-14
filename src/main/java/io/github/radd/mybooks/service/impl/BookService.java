@@ -85,4 +85,8 @@ public class BookService {
 
         return slug;
     }
+
+    public Book getBookBySlug(String slug) {
+        return bookRepo.findBySlug(slug);
+    }
 }

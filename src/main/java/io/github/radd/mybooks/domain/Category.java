@@ -27,6 +27,9 @@ public class Category {
     @OrderBy("name ASC")
     private Collection<Category> children;
 
+    @OneToMany(mappedBy = "category")
+    private Collection<Book> books;
+
     public Category() {
     }
 
@@ -68,5 +71,13 @@ public class Category {
 
     public void setChildren(Collection<Category> children) {
         this.children = children;
+    }
+
+    public Collection<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Collection<Book> books) {
+        this.books = books;
     }
 }

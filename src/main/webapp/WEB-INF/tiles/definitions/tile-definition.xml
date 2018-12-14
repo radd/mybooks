@@ -56,6 +56,10 @@
 		<put-attribute name="content" value="/WEB-INF/views/addBook.jsp" />
 	</definition>
 
+	<definition name="book" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/book.jsp" />
+	</definition>
+
 
 
 </tiles-definitions>

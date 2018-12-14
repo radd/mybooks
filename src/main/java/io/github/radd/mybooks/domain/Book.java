@@ -62,6 +62,10 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private Collection<Review> reviews;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @ManyToMany
     @JoinTable(name = "book_book_tag",
             joinColumns = @JoinColumn(
@@ -216,5 +220,21 @@ public class Book {
 
     public void setBookTags(Collection<BookTag> bookTags) {
         this.bookTags = bookTags;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
     }
 }
