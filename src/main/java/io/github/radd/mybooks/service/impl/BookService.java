@@ -5,6 +5,7 @@ import io.github.radd.mybooks.domain.Book;
 import io.github.radd.mybooks.domain.dto.BookDTO;
 import io.github.radd.mybooks.domain.repository.AuthorRepository;
 import io.github.radd.mybooks.domain.repository.BookRepository;
+import io.github.radd.mybooks.utils.WebUtils;
 import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class BookService {
         Book book = ObjectMapperUtils.map(bookDTO, Book.class);
         book.setAuthors(getAuthors(bookDTO.getAuthors()));
         book.setCreateDate(LocalDateTime.now());
-
+        book.setSlug(getUniqueSlug(bookDTO.getTitle()));
 
         return bookRepo.save(book);
     }
@@ -59,11 +60,29 @@ public class BookService {
         return authors;
     }
 
-     private List<Long> getIDsFromString(String data) {
+    private List<Long> getIDsFromString(String data) {
 
         return Arrays.stream(data.split(","))
                 .filter(s -> (!s.equals("") && s.chars().allMatch( Character::isDigit )))
                 .map(Long::parseLong)
                 .collect(Collectors.toList());
+    }
+
+    private String getUniqueSlug(String text) {
+        String slug = WebUtils.makeSlug(text);
+
+        slug = !slug.equals("") ? slug : "book";
+
+        Book book = bookRepo.findBySlug(slug);
+
+        String tempSlug = slug;
+        int suffix = 2;
+        while(book != null) {
+            slug = tempSlug + "-" + suffix;
+            book = bookRepo.findBySlug(slug);
+            suffix++;
+        }
+
+        return slug;
     }
 }

@@ -7,8 +7,10 @@ import io.github.radd.mybooks.utils.user.UserInfo;
 import io.github.radd.mybooks.utils.user.UserRole;
 import org.junit.Test;
 
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 
@@ -85,8 +87,6 @@ public class UnitTests {
         assertArrayEquals(new Long[]{4,8}, ids.toArray());
 
     }*/
-
-
 
 
 }
