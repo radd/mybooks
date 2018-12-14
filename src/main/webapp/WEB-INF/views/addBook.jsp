@@ -49,6 +49,51 @@
                     </div>
 
                 </div>
+                <div class="form-group">
+                    <label for="cats">Category</label>
+                    <form:select path="category" value="${book.category.id}" id="cats" class="form-control">
+                        <form:option value="0" label="Select" />
+                        <c:forEach items="${cats}" var="cat">
+                            <c:choose>
+                                <c:when test="${cat.id == book.category.id}">
+                                    <option value="${cat.id}" selected>${cat.name}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${cat.id}">${cat.name}</option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </form:select>
+                    <form:errors path="category" cssClass="text-danger" />
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <form:textarea class="form-control" path="description" value="${book.description}" placeholder="Description"></form:textarea>
+                    <form:errors path="description" cssClass="text-danger" />
+                </div>
+                <div class="form-group">
+                    <label for="publishYear">Publish year</label>
+                    <form:input type="text" class="form-control" path="publishYear" id="publishYear" value="${book.publishYear}" placeholder="Publish year"/>
+                    <form:errors path="publishYear" cssClass="text-danger" />
+                </div>
+                <div class="form-group">
+                    <label for="pages">Page count</label>
+                    <form:input type="text" class="form-control" path="pages" id="pages" value="${book.pages}" placeholder="Page count"/>
+                    <form:errors path="pages" cssClass="text-danger" />
+                </div>
+                <div class="form-group">
+                    <label for="originalTitle">Orginal title</label>
+                    <form:input type="text" class="form-control" path="originalTitle" id="originalTitle" value="${book.originalTitle}" placeholder="Orginal title"/>
+                    <form:errors path="originalTitle" cssClass="text-danger" />
+                </div>
+
+                <div class="form-group">
+                    <label for="cover">Cover</label>
+                    <form:input type="text" class="form-control" path="cover" id="cover" value="${book.cover}" placeholder="Cover"/>
+                    <form:errors path="cover" cssClass="text-danger" />
+                </div>
+
+
                 <button type="submit" class="btn btn-primary">Add</button>
             </form:form>
             </c:if>

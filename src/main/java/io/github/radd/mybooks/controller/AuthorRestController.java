@@ -30,7 +30,7 @@ public class AuthorRestController {
     }
 
     @PostMapping("/add")
-    public Response<AuthorSearchDTO> addAuthor(@RequestBody AuthorSearchDTO authorSearchDTO) {
+    public Response addAuthor(@RequestBody AuthorSearchDTO authorSearchDTO) {
         Author author = authorRepo.save(ObjectMapperUtils.map(authorSearchDTO, Author.class));
         Response response = new Response();
         if(author != null)

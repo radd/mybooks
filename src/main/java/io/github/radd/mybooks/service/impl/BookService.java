@@ -5,13 +5,16 @@ import io.github.radd.mybooks.domain.Book;
 import io.github.radd.mybooks.domain.dto.BookDTO;
 import io.github.radd.mybooks.domain.repository.AuthorRepository;
 import io.github.radd.mybooks.domain.repository.BookRepository;
+import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,9 +32,10 @@ public class BookService {
 
         Assert.notNull(bookDTO, "Book null");
 
-        Book book = new Book();
-        book.setTitle(bookDTO.getTitle());
+        Book book = ObjectMapperUtils.map(bookDTO, Book.class);
         book.setAuthors(getAuthors(bookDTO.getAuthors()));
+        book.setCreateDate(LocalDateTime.now());
+
 
         return bookRepo.save(book);
     }

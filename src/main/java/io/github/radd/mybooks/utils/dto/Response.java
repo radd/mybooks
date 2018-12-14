@@ -1,12 +1,12 @@
 package io.github.radd.mybooks.utils.dto;
 
-public class Response<T> {
+public class Response {
 
     public final static String DONE = "done";
     public final static String ERROR = "error";
 
     private String status;
-    private T data;
+    private Object data;
 
     public Response(){
         status = ERROR;
@@ -16,17 +16,17 @@ public class Response<T> {
         this.status = status;
     }
 
-    public Response(String status, T data){
+    public Response(String status, Object data){
         this.status = status;
         this.data = data;
     }
 
-    public void set(T data) {
+    public void set(Object data) {
         this.data = data;
         status = DONE;
     }
 
-    public void set(String status, T data) {
+    public void set(String status, Object data) {
         this.data = data;
         this.status = status;
     }
@@ -39,11 +39,11 @@ public class Response<T> {
         this.status = status;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

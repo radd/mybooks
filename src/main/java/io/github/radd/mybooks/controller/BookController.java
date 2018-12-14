@@ -10,6 +10,7 @@ import io.github.radd.mybooks.domain.dto.BookTagDTO;
 import io.github.radd.mybooks.domain.repository.AuthorRepository;
 import io.github.radd.mybooks.service.impl.BookService;
 import io.github.radd.mybooks.service.impl.BookTagService;
+import io.github.radd.mybooks.service.impl.CategoryService;
 import io.github.radd.mybooks.service.impl.Link;
 import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class BookController {
     @Autowired
     AuthorRepository authorRepo;
 
+    @Autowired
+    CategoryService categoryService;
+
     @Value("#{servletContext.contextPath}")
     private String servletContextPath;
 
@@ -52,6 +56,11 @@ public class BookController {
         return ObjectMapperUtils.mapAll(authors, AuthorSearchDTO.class);
     }
 
+    @ModelAttribute("cats")
+    public List<Category> allCats() {
+        return categoryService.getAllCatsForm();
+    }
+
     @GetMapping("/book/add")
     public String authorAddPage(Model model) {
         model.addAttribute("title", "Add new book");
@@ -62,16 +71,6 @@ public class BookController {
 
         return "addBook";
     }
-
-/*    private BookDTO prepareBookDTO() {
-        BookDTO bookDTO = new BookDTO();
-
-
-    }
-
-    private String prepareAuthors() {
-
-    }*/
 
     @PostMapping("/book/add")
     public String addBook(@ModelAttribute("book") @Valid BookDTO bookDto,

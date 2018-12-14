@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <form:textarea class="form-control" path="description" id="name" value="${author.description}" placeholder="Description"></form:textarea>
+                    <form:textarea class="form-control" path="description" value="${author.description}" placeholder="Description"></form:textarea>
                     <form:errors path="description" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
