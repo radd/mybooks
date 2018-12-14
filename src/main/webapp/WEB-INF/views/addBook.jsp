@@ -103,7 +103,7 @@
 <script type="text/javascript">
 $(function() {
 
-    $('#authorSearch').find('option').click(function () {
+    $('#authorSearch').on("click", "option", function () {
         var authorSelected = $(this);
         var id = authorSelected.val();
         var name = authorSelected.text();
@@ -205,6 +205,8 @@ $(function() {
            // console.log(res.data.id);
 
             addAuthor(res.data.id, res.data.firstName + " " + res.data.lastName);
+
+            $("#authorSearch").append(new Option(res.data.firstName + " " + res.data.lastName, res.data.id));
 
             $("#newAuthorForm").css("display", "none");
             $("#newAuthorBtn").text("Nowy autor");
