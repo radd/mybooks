@@ -1,5 +1,7 @@
 package io.github.radd.mybooks.domain;
 
+import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Default;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -16,13 +18,17 @@ public class BookTag {
     private String name;
 
     @Column(name = "book_count")
-    private Long bookCount;
+    private Long bookCount = 0L;
 
     @ManyToMany(mappedBy = "bookTags")
     private Collection<Book> books;
 
 
     public BookTag() {
+    }
+
+    public BookTag(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -42,7 +48,7 @@ public class BookTag {
     }
 
     public Long getBookCount() {
-        return bookCount;
+        return bookCount != null ? bookCount : 0L;
     }
 
     public void setBookCount(Long bookCount) {

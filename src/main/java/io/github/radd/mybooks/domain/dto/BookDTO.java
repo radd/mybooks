@@ -31,6 +31,8 @@ public class BookDTO {
 
     private String cover;
 
+    private String tags;
+
     public String getTitle() {
         return title;
     }
@@ -93,5 +95,13 @@ public class BookDTO {
 
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

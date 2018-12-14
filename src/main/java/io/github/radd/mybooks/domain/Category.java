@@ -16,7 +16,7 @@ public class Category {
     private String name;
 
     @Column(name = "book_count")
-    private Long bookCount;
+    private Long bookCount = 0L;
 
     //@ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne
@@ -50,7 +50,7 @@ public class Category {
     }
 
     public Long getBookCount() {
-        return bookCount;
+        return bookCount != null ? bookCount : 0L;
     }
 
     public void setBookCount(Long bookCount) {

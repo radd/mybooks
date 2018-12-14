@@ -93,6 +93,13 @@
                     <form:errors path="cover" cssClass="text-danger" />
                 </div>
 
+                <div class="form-group">
+                    <label for="cover">Tags</label>
+                    <form:input type="text" class="form-control" path="tags" id="tags" value="${book.tags}" placeholder="Tags"/>
+                    <form:errors path="tags" cssClass="text-danger" />
+                </div>
+
+
 
                 <button type="submit" class="btn btn-primary">Add</button>
             </form:form>
