@@ -30,6 +30,8 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Collection<Book> books;
 
+    private String slug = "cat";
+
     public Category() {
     }
 
@@ -79,5 +81,13 @@ public class Category {
 
     public void setBooks(Collection<Book> books) {
         this.books = books;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 }

@@ -55,7 +55,7 @@ public class CategoryController {
         model.addAttribute("added", false);
 
         if (!result.hasErrors()) {
-            category = addCategory(categoryDTO);
+            category = categoryService.addCategory(categoryDTO);
         }
         if (category != null) {
             model.addAttribute("added", true);
@@ -65,16 +65,6 @@ public class CategoryController {
         }
         System.out.println("check3");
         return "addCat";
-    }
-
-    private Category addCategory(CategoryDTO categoryDTO) {
-        Category cat = null;
-        try {
-            cat = categoryService.addCategory(categoryDTO);
-        } catch (Exception e) {
-            return null;
-        }
-        return cat;
     }
 
     @GetMapping("/cat/edit")
