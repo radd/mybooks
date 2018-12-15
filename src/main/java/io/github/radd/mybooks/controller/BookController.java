@@ -61,7 +61,7 @@ public class BookController {
     }
 
     @GetMapping("/book/add")
-    public String authorAddPage(Model model) {
+    public String addBook(Model model) {
         model.addAttribute("title", "Add new book");
         BookDTO bookDTO = new BookDTO();
 

@@ -34,6 +34,7 @@ public class Review {
     @OneToMany(mappedBy = "review")
     private Collection<Comment> comments;
 
+    private String slug = "";
 
     public Review() {
     }
@@ -100,5 +101,13 @@ public class Review {
 
     public void setComments(Collection<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 }
