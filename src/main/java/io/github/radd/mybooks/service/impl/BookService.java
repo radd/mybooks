@@ -30,7 +30,7 @@ public class BookService {
     private AuthorRepository authorRepo;
 
     @Autowired
-    private BookTagRepository bookTagRepo;
+    private BookTagService bookTagService;
 
     @Autowired
     private CategoryRepository categoryRepo;
@@ -45,7 +45,7 @@ public class BookService {
         book.setAuthors(getAuthors(bookDTO.getAuthors()));
         book.setCreateDate(LocalDateTime.now());
         book.setSlug(getUniqueSlug(bookDTO.getTitle()));
-        book.setBookTags(getTags(bookDTO.getTags()));
+        book.setBookTags(bookTagService.saveAndGetTagsFromString(bookDTO.getTags()));
 
         Book newBook = bookRepo.save(book);
 
@@ -56,13 +56,10 @@ public class BookService {
             categoryRepo.save(cat);
 
             Collection<BookTag> tags = newBook.getBookTags();
-            for(BookTag bt : tags) {
-                bt.setBookCount(bt.getBookCount()+1);
-            }
-            bookTagRepo.saveAll(tags);
+            bookTagService.incrementBookCount(tags);
         }
 
-        return bookRepo.save(book);
+        return newBook;
     }
 
     public List<Author> getAuthors(String data) {
@@ -93,7 +90,7 @@ public class BookService {
     }
 
     private String getUniqueSlug(String text) {
-        String slug = WebUtils.makeSlug(text);
+        String slug = WebUtils.Slug.makeSlug(text);
 
         slug = !slug.equals("") ? slug : "book";
 
@@ -114,24 +111,5 @@ public class BookService {
         return bookRepo.findBySlug(slug);
     }
 
-    private List<BookTag> getTags(String data) {
-        List<BookTag> allTags = new ArrayList<>();
 
-        if(data != null) {
-            List<String> tagNames = Arrays.stream(data.split(","))
-                    .filter(s -> (!s.equals("")))
-                    .map(s -> prepareTagName(s))
-                    .collect(Collectors.toList()); //get all names of tags
-            allTags = bookTagRepo.findByNameIn(tagNames); //get exists tags
-            List<String> existTags = allTags.stream().map(t -> t.getName()).collect(Collectors.toList()); //existTags to string names
-            tagNames.removeAll(existTags); // remove exists tags(by name)
-            allTags.addAll(bookTagRepo.saveAll(tagNames.stream().map(s -> new BookTag(s)).collect(Collectors.toList())));
-        }
-
-        return allTags;
-    }
-
-    private String prepareTagName(String data) {
-        return data.replaceAll(" ", "").trim();
-    }
 }

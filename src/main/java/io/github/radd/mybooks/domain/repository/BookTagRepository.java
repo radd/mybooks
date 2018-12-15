@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BookTagRepository extends JpaRepository<BookTag, Long> {
     List<BookTag> findByNameIn(List<String> names);
+
+    BookTag findBySlug(String slug);
 }

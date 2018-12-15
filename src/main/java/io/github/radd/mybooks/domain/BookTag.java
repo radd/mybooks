@@ -16,6 +16,7 @@ public class BookTag {
     private Long id;
 
     private String name;
+    private String slug;
 
     @Column(name = "book_count")
     private Long bookCount = 0L;
@@ -27,8 +28,9 @@ public class BookTag {
     public BookTag() {
     }
 
-    public BookTag(String name) {
+    public BookTag(String name, String slug) {
         this.name = name;
+        this.slug = slug;
     }
 
     public Long getId() {
@@ -61,5 +63,13 @@ public class BookTag {
 
     public void setBooks(Collection<Book> books) {
         this.books = books;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 }

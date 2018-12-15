@@ -26,7 +26,7 @@ public class AuthorService {
     }
 
     private String getUniqueSlug(String text) {
-        String slug = WebUtils.makeSlug(text);
+        String slug = WebUtils.Slug.makeSlug(text);
 
         slug = !slug.equals("") ? slug : "author";
 
