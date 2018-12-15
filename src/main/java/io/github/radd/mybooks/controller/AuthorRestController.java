@@ -1,8 +1,10 @@
 package io.github.radd.mybooks.controller;
 
 import io.github.radd.mybooks.domain.Author;
+import io.github.radd.mybooks.domain.dto.AuthorDTO;
 import io.github.radd.mybooks.domain.dto.AuthorSearchDTO;
 import io.github.radd.mybooks.domain.repository.AuthorRepository;
+import io.github.radd.mybooks.service.impl.AuthorService;
 import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
 import io.github.radd.mybooks.utils.dto.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class AuthorRestController {
     @Autowired
     AuthorRepository authorRepo;
 
+    @Autowired
+    AuthorService authorService;
+
     @Value("#{servletContext.contextPath}")
     private String servletContextPath;
 
@@ -31,7 +36,7 @@ public class AuthorRestController {
 
     @PostMapping("/add")
     public Response addAuthor(@RequestBody AuthorSearchDTO authorSearchDTO) {
-        Author author = authorRepo.save(ObjectMapperUtils.map(authorSearchDTO, Author.class));
+        Author author = authorService.addAuthor(ObjectMapperUtils.map(authorSearchDTO, AuthorDTO.class));
         Response response = new Response();
         if(author != null)
             response.set(ObjectMapperUtils.map(author, AuthorSearchDTO.class));

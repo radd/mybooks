@@ -59,7 +59,7 @@ public class AuthorController {
         model.addAttribute("added", false);
 
         if (!result.hasErrors()) {
-            newAuthor = addAuthor(authorDto);
+            newAuthor = authorService.addAuthor(authorDto);
         }
         if (newAuthor != null) {
             model.addAttribute("added", true);
@@ -70,17 +70,6 @@ public class AuthorController {
 
         return "addAuthor";
     }
-
-    private Author addAuthor(AuthorDTO authorDto) {
-        Author author = null;
-        try {
-            author = authorService.addAuthor(authorDto);
-        } catch (Exception e) {
-            return null;
-        }
-        return author;
-    }
-
 
     @GetMapping("/author/{author}")
     public String authorPage(@PathVariable String author, Model model) {

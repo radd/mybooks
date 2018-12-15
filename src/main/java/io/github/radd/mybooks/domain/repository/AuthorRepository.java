@@ -20,4 +20,6 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
 
     @Query("SELECT l1 FROM Location l1 WHERE l1.node.id IN :ids")
     List<Location> findLocationsByNodeIds(@Param("ids") Set<String> ids);*/
+
+    Author findBySlug(String slug);
 }
