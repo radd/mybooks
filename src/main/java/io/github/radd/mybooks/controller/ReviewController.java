@@ -1,17 +1,12 @@
 package io.github.radd.mybooks.controller;
 
-import io.github.radd.mybooks.domain.Author;
 import io.github.radd.mybooks.domain.Book;
 import io.github.radd.mybooks.domain.Review;
-import io.github.radd.mybooks.domain.dto.AuthorDTO;
-import io.github.radd.mybooks.domain.dto.BookDTO;
 import io.github.radd.mybooks.domain.dto.ReviewDTO;
 import io.github.radd.mybooks.domain.repository.BookRepository;
 import io.github.radd.mybooks.domain.repository.ReviewRepository;
-import io.github.radd.mybooks.service.impl.AuthorService;
-import io.github.radd.mybooks.service.impl.BookService;
-import io.github.radd.mybooks.service.impl.Link;
 import io.github.radd.mybooks.service.impl.ReviewService;
+import io.github.radd.mybooks.utils.WebUtils;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +68,7 @@ public class ReviewController {
             }
             if (newReview != null) {
                 model.addAttribute("added", true);
-                model.addAttribute("reviewPath", Link.get(newReview));
+                model.addAttribute("reviewPath", newReview.getSlug());
                 model.addAttribute("reviewTitle", newReview.getTitle());
                 model.addAttribute("bookID", book.getId());
                 model.addAttribute("review", new ReviewDTO());
@@ -135,7 +130,7 @@ public class ReviewController {
             }
             if (editReview != null) {
                 model.addAttribute("edited", true);
-                model.addAttribute("reviewPath", Link.get(editReview));
+                model.addAttribute("reviewPath", editReview.getSlug());
                 model.addAttribute("reviewTitle", editReview.getTitle());
                 model.addAttribute("review", new ReviewDTO());
             }

@@ -1,5 +1,9 @@
 package io.github.radd.mybooks.utils;
 
+import io.github.radd.mybooks.domain.Book;
+import io.github.radd.mybooks.domain.Review;
+import org.springframework.beans.factory.annotation.Value;
+
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
@@ -29,6 +33,28 @@ public class WebUtils {
             slug = NONLATIN.matcher(slug).replaceAll("");
             slug = toLowerCase ? slug.toLowerCase() : slug;
             return slug;
+        }
+    }
+
+    //TODO  route system
+    public static class Link {
+
+        //TODO dynamic optain context path !!!
+        private static final String contextPath = "mybooks";
+
+        public static String get(Object obj) {
+
+            String path = "/" + contextPath + "/";
+            if(obj instanceof Book) {
+                Book b = (Book) obj;
+                path += "book/" + b.getSlug();
+            }
+            else if(obj instanceof Review) {
+                Review r = (Review) obj;
+                path += "review/" + r.getSlug();
+            }
+
+            return path;
         }
     }
 

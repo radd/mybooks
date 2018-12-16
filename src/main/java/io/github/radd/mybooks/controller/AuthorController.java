@@ -1,12 +1,10 @@
 package io.github.radd.mybooks.controller;
 
 import io.github.radd.mybooks.domain.Author;
-import io.github.radd.mybooks.domain.User;
 import io.github.radd.mybooks.domain.dto.AuthorDTO;
-import io.github.radd.mybooks.domain.dto.UserSignUpDTO;
 import io.github.radd.mybooks.domain.repository.AuthorRepository;
 import io.github.radd.mybooks.service.impl.AuthorService;
-import io.github.radd.mybooks.service.impl.Link;
+import io.github.radd.mybooks.utils.WebUtils;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,7 +69,7 @@ public class AuthorController {
         }
         if (newAuthor != null) {
             model.addAttribute("added", true);
-            model.addAttribute("authorPath", Link.get(newAuthor));
+            model.addAttribute("authorPath", newAuthor.getSlug());
             model.addAttribute("authorName", newAuthor.getDisplayName());
             model.addAttribute("author", new AuthorDTO());
         }
@@ -138,7 +135,7 @@ public class AuthorController {
             }
             if (editAuthor != null) {
                 model.addAttribute("edited", true);
-                model.addAttribute("authorPath", Link.get(editAuthor));
+                model.addAttribute("authorPath", editAuthor.getSlug());
                 model.addAttribute("authorName", editAuthor.getDisplayName());
                 model.addAttribute("author", new AuthorDTO());
             }

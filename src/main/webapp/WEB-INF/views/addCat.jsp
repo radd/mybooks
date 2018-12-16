@@ -8,7 +8,7 @@
         <div class="col-md-6">
 
             <c:if test="${added}">
-                Added. See <a href="${catPath}">${catName}</a> or <a href="${pageContext.request.contextPath}/cat/add">Add new category</a>
+                Added. See <a href="${pageContext.request.contextPath}/cat/${catPath}">${catName}</a> or <a href="${pageContext.request.contextPath}/cat/add">Add new category</a>
 
             </c:if>
 

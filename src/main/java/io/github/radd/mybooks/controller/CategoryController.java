@@ -1,14 +1,10 @@
 package io.github.radd.mybooks.controller;
 
-import io.github.radd.mybooks.domain.BookTag;
 import io.github.radd.mybooks.domain.Category;
-import io.github.radd.mybooks.domain.dto.BookTagDTO;
 import io.github.radd.mybooks.domain.dto.CategoryDTO;
-import io.github.radd.mybooks.service.impl.BookTagService;
 import io.github.radd.mybooks.service.impl.CategoryService;
-import io.github.radd.mybooks.service.impl.Link;
+import io.github.radd.mybooks.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,7 +55,7 @@ public class CategoryController {
         }
         if (category != null) {
             model.addAttribute("added", true);
-            model.addAttribute("catPath", Link.get(category));
+            model.addAttribute("catPath", category.getSlug());
             model.addAttribute("catName", category.getName());
             model.addAttribute("cat", new CategoryDTO());
         }

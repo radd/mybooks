@@ -8,7 +8,7 @@
         <div class="col-md-6">
 
             <c:if test="${added}">
-                Added. See <a href="${bookPath}">${bookTitle}</a> or <a href="${pageContext.request.contextPath}/books/add">Add new book</a>
+                Added. See <a href="${pageContext.request.contextPath}/book/${bookPath}">${bookTitle}</a> or <a href="${pageContext.request.contextPath}/books/add">Add new book</a>
 
             </c:if>
 

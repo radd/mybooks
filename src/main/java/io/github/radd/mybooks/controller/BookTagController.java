@@ -1,12 +1,9 @@
 package io.github.radd.mybooks.controller;
 
-import io.github.radd.mybooks.domain.Author;
 import io.github.radd.mybooks.domain.BookTag;
-import io.github.radd.mybooks.domain.dto.AuthorDTO;
 import io.github.radd.mybooks.domain.dto.BookTagDTO;
-import io.github.radd.mybooks.service.impl.AuthorService;
 import io.github.radd.mybooks.service.impl.BookTagService;
-import io.github.radd.mybooks.service.impl.Link;
+import io.github.radd.mybooks.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -54,7 +51,7 @@ public class BookTagController {
         }
         if (newTag != null) {
             model.addAttribute("added", true);
-            model.addAttribute("tagPath", Link.get(newTag));
+            model.addAttribute("tagPath", newTag.getSlug());
             model.addAttribute("tagName", newTag.getName());
             model.addAttribute("tag", new BookTagDTO());
         }

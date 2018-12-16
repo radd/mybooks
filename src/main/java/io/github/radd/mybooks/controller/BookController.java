@@ -2,18 +2,14 @@ package io.github.radd.mybooks.controller;
 
 import io.github.radd.mybooks.domain.Author;
 import io.github.radd.mybooks.domain.Book;
-import io.github.radd.mybooks.domain.BookTag;
 import io.github.radd.mybooks.domain.Category;
 import io.github.radd.mybooks.domain.dto.AuthorSearchDTO;
 import io.github.radd.mybooks.domain.dto.BookDTO;
-import io.github.radd.mybooks.domain.dto.BookTagDTO;
-import io.github.radd.mybooks.domain.dto.ReviewDTO;
 import io.github.radd.mybooks.domain.repository.AuthorRepository;
 import io.github.radd.mybooks.domain.repository.BookRepository;
 import io.github.radd.mybooks.service.impl.BookService;
-import io.github.radd.mybooks.service.impl.BookTagService;
 import io.github.radd.mybooks.service.impl.CategoryService;
-import io.github.radd.mybooks.service.impl.Link;
+import io.github.radd.mybooks.utils.WebUtils;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
 import io.github.radd.mybooks.utils.user.UserInfo;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -93,7 +88,7 @@ public class BookController {
         }
         if (newBook != null) {
             model.addAttribute("added", true);
-            model.addAttribute("bookPath", Link.get(newBook));
+            model.addAttribute("bookPath", newBook.getSlug());
             model.addAttribute("bookTitle", newBook.getTitle());
             model.addAttribute("book", new BookDTO());
         }
@@ -150,7 +145,7 @@ public class BookController {
             }
             if (editBook != null) {
                 model.addAttribute("edited", true);
-                model.addAttribute("bookPath", Link.get(editBook));
+                model.addAttribute("bookPath", editBook.getSlug());
                 model.addAttribute("bookTitle", editBook.getTitle());
                 model.addAttribute("book", new BookDTO());
             }
