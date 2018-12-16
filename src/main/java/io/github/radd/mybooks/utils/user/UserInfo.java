@@ -50,6 +50,10 @@ public class UserInfo extends org.springframework.security.core.userdetails.User
         return user.getRoles().stream().anyMatch(r -> r.getName().equals(UserRole.MODERATOR.getName()));
     }
 
+    public boolean isAdminOrModerator() {
+        return isAdmin() || isModerator();
+    }
+
     public String getAllUserRoles() {
         String output = "";
 

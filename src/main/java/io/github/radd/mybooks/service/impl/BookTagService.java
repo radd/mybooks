@@ -97,4 +97,11 @@ public class BookTagService {
         bookTagRepo.saveAll(tags);
     }
 
+    public String getTagsFromColl(Collection<BookTag> tags) {
+        return tags.stream()
+                .map(a -> a.getName())
+                .collect(Collectors.joining (","));
+
+    }
+
 }

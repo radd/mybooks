@@ -77,7 +77,7 @@ public class ReviewController {
     }
 
     @GetMapping("/review/{slug}")
-    public String authorPage(@PathVariable String slug, Model model) {
+    public String reviewPage(@PathVariable String slug, Model model) {
 
         return "home";
     }

@@ -12,7 +12,12 @@
 
             </c:if>
 
-            <c:if test="${not added}">
+            <c:if test="${edited}">
+                Edited. See <a href="${bookPath}">${bookTitle}</a>
+
+            </c:if>
+
+            <c:if test="${not added and not edited}">
             <c:if test="${not empty errorMsg}">
                 <div class="alert alert-danger">
                         ${errorMsg}<br />

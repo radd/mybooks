@@ -1,16 +1,15 @@
 package io.github.radd.mybooks.service.impl;
 
-import io.github.radd.mybooks.domain.Author;
-import io.github.radd.mybooks.domain.Book;
-import io.github.radd.mybooks.domain.BookTag;
-import io.github.radd.mybooks.domain.Category;
+import io.github.radd.mybooks.domain.*;
 import io.github.radd.mybooks.domain.dto.BookDTO;
 import io.github.radd.mybooks.domain.repository.AuthorRepository;
 import io.github.radd.mybooks.domain.repository.BookRepository;
 import io.github.radd.mybooks.domain.repository.BookTagRepository;
 import io.github.radd.mybooks.domain.repository.CategoryRepository;
 import io.github.radd.mybooks.utils.WebUtils;
+import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
+import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -35,17 +34,26 @@ public class BookService {
     @Autowired
     private CategoryRepository categoryRepo;
 
+    @Autowired
+    AuthUser auth;
 
     @Transactional
     public Book addBook(BookDTO bookDTO) {
 
         Assert.notNull(bookDTO, "Book null");
+        Assert.notNull(auth.getUserInfo(), "User null");
+
+        User user = auth.getUserInfo().getUser();
 
         Book book = ObjectMapperUtils.map(bookDTO, Book.class);
-        book.setAuthors(getAuthors(bookDTO.getAuthors()));
+        book.setAuthors(getAuthorsFromString(bookDTO.getAuthors()));
         book.setCreateDate(LocalDateTime.now());
         book.setSlug(getUniqueSlug(bookDTO.getTitle()));
         book.setBookTags(bookTagService.saveAndGetTagsFromString(bookDTO.getTags()));
+        book.setViewCount(0L);
+        book.setRatingCount(0);
+        book.setStars(0.f);
+        book.setUser(user);
 
         Book newBook = bookRepo.save(book);
 
@@ -62,7 +70,7 @@ public class BookService {
         return newBook;
     }
 
-    public List<Author> getAuthors(String data) {
+    private List<Author> getAuthorsFromString(String data) {
         List<Author> authors = new ArrayList<>();
         //List<Integer> idList = new ArrayList<>();
         if(data != null) {
@@ -112,4 +120,40 @@ public class BookService {
     }
 
 
+    public BookDTO getBookToEdit(Book book) {
+        BookDTO editBook =  ObjectMapperUtils.map(book, BookDTO.class);
+        editBook.setAuthors(getAuthorsFromColl(book.getAuthors()));
+        editBook.setTags(bookTagService.getTagsFromColl(book.getBookTags()));
+        return editBook;
+    }
+
+    private String getAuthorsFromColl(Collection<Author> authors) {
+        return authors.stream()
+                .map(a -> a.getId().toString())
+                .collect(Collectors.joining (",")) + ",";
+
+    }
+
+
+    @Transactional
+    public Book editBook(BookDTO bookDTO, Book book) {
+
+        Assert.notNull(bookDTO, "Book null");
+        Assert.notNull(book, "Book null");
+        Assert.notNull(auth.getUserInfo(), "User null");
+
+        book.setTitle(bookDTO.getTitle());
+        book.setCategory(bookDTO.getCategory());
+        book.setDescription(bookDTO.getDescription());
+        book.setPublishYear(bookDTO.getPublishYear());
+        book.setPages(bookDTO.getPages());
+        book.setOriginalTitle(bookDTO.getOriginalTitle());
+        book.setCover(bookDTO.getCover());
+        book.setAuthors(getAuthorsFromString(bookDTO.getAuthors()));
+        book.setBookTags(bookTagService.saveAndGetTagsFromString(bookDTO.getTags()));
+
+        Book editBook = bookRepo.save(book);
+
+        return editBook;
+    }
 }
