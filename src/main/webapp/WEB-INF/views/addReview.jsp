@@ -8,11 +8,16 @@
         <div class="col-md-6">
 
             <c:if test="${added}">
-                Added. See <a href="${reviewPath}">${reviewTitle}</a> or <a href="${pageContext.request.contextPath}/review/${bookID}/add">Add new review</a>
+                Added. See <a href="${reviewPath}">${reviewTitle}</a> or <a href="${pageContext.request.contextPath}/reviews/${bookID}/add">Add new review</a>
 
             </c:if>
 
-            <c:if test="${not added}">
+            <c:if test="${edited}">
+                Edited. See <a href="${reviewPath}">${reviewTitle}</a>
+
+            </c:if>
+
+            <c:if test="${not added and not edited}">
             <c:if test="${not empty errorMsg}">
                 <div class="alert alert-danger">
                         ${errorMsg}<br />
@@ -31,7 +36,7 @@
                     <form:textarea class="form-control" path="content" value="${review.content}" placeholder="Review content"></form:textarea>
                     <form:errors path="content" cssClass="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </form:form>
             </c:if>
         </div>
