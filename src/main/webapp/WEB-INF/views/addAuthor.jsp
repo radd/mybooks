@@ -8,11 +8,16 @@
         <div class="col-md-6">
 
             <c:if test="${added}">
-                Added. See <a href="${authorPath}">${authorName}</a> or <a href="${pageContext.request.contextPath}/author/add">Add new author</a>
+                Added. See <a href="${authorPath}">${authorName}</a> or <a href="${pageContext.request.contextPath}/authors/add">Add new author</a>
 
             </c:if>
 
-            <c:if test="${not added}">
+            <c:if test="${edited}">
+                Edited. See <a href="${authorPath}">${authorName}</a>
+
+            </c:if>
+
+            <c:if test="${not added and not edited}">
             <c:if test="${not empty errorMsg}">
                 <div class="alert alert-danger">
                         ${errorMsg}<br />

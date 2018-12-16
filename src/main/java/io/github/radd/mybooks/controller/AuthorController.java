@@ -4,8 +4,11 @@ import io.github.radd.mybooks.domain.Author;
 import io.github.radd.mybooks.domain.User;
 import io.github.radd.mybooks.domain.dto.AuthorDTO;
 import io.github.radd.mybooks.domain.dto.UserSignUpDTO;
+import io.github.radd.mybooks.domain.repository.AuthorRepository;
 import io.github.radd.mybooks.service.impl.AuthorService;
 import io.github.radd.mybooks.service.impl.Link;
+import io.github.radd.mybooks.utils.auth.AuthUser;
+import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,12 @@ public class AuthorController {
 
     @Autowired
     AuthorService authorService;
+
+    @Autowired
+    AuthorRepository authorRepo;
+
+    @Autowired
+    AuthUser auth;
 
     @Value("#{servletContext.contextPath}")
     private String servletContextPath;
@@ -43,7 +52,7 @@ public class AuthorController {
         return "authors";
     }
 
-    @GetMapping("/author/add")
+    @GetMapping("/authors/add")
     public String authorAddPage(Model model) {
         model.addAttribute("title", "Add new author");
         model.addAttribute("author", new AuthorDTO());
@@ -52,7 +61,7 @@ public class AuthorController {
         return "addAuthor";
     }
 
-    @PostMapping("/author/add")
+    @PostMapping("/authors/add")
     public String signUp(@ModelAttribute("author") @Valid AuthorDTO authorDto,
                          BindingResult result, HttpServletRequest req, Model model) {
         Author newAuthor = null;
@@ -79,6 +88,65 @@ public class AuthorController {
         return "home";
     }
 
+
+    @GetMapping("/authors/edit/{authorID}")
+    public String editBook(@PathVariable String authorID, Model model) {
+
+        if (!auth.isLoggedIn())
+            return "404";
+
+        Long Id = Long.parseLong(authorID);
+        Author author = authorRepo.findById(Id).orElse(null);
+
+        UserInfo user = auth.getUserInfo();
+
+        if(author == null)
+            return "404";
+
+        if(user.getUser().getId() == author.getUser().getId() || user.isAdminOrModerator()) {
+            AuthorDTO editAuthor = authorService.getAuthorToEdit(author);
+
+            model.addAttribute("title", "Edit author: " + author.getDisplayName());
+            model.addAttribute("author", editAuthor);
+
+            return "addAuthor";
+        }
+
+        return "404";
+    }
+
+    @PostMapping("/authors/edit/{authorID}")
+    public String editBook(@PathVariable String authorID, @ModelAttribute("author") @Valid AuthorDTO authorDTO,
+                           BindingResult result, HttpServletRequest req, Model model) {
+        if (!auth.isLoggedIn())
+            return "404";
+
+        Long Id = Long.parseLong(authorID);
+        Author author = authorRepo.findById(Id).orElse(null);
+
+        UserInfo user = auth.getUserInfo();
+
+        if(author == null)
+            return "404";
+
+        if(user.getUser().getId() == author.getUser().getId() || user.isAdminOrModerator()) {
+            Author editAuthor = null;
+            model.addAttribute("edited", false);
+
+            if (!result.hasErrors()) {
+                editAuthor = authorService.editAuthor(authorDTO, author);
+            }
+            if (editAuthor != null) {
+                model.addAttribute("edited", true);
+                model.addAttribute("authorPath", Link.get(editAuthor));
+                model.addAttribute("authorName", editAuthor.getDisplayName());
+                model.addAttribute("author", new AuthorDTO());
+            }
+
+        }
+
+        return "addAuthor";
+    }
 
 }
 

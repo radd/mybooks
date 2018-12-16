@@ -103,7 +103,7 @@ public class ReviewController {
         if(user.getUser().getId() == review.getUser().getId() || user.isAdminOrModerator()) {
             ReviewDTO editReview = reviewService.getReviewToEdit(review);
 
-            model.addAttribute("title", "Edit book: " + review.getTitle());
+            model.addAttribute("title", "Edit review: " + review.getTitle());
             model.addAttribute("review", editReview);
 
             return "addReview";
