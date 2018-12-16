@@ -57,7 +57,7 @@ public class CategoryService {
     }
 
 
-    //Category Form - category list with parent-children order and indent
+    //Category Form - category list with parent-children order and intend
 
     public List<Category> getAllCatsForm() {
         //List<Category> allCats = categoryRepo.findAll(new Sort(Sort.Direction.ASC, "name"));
@@ -90,6 +90,45 @@ public class CategoryService {
         for(Category c : children) {
             catForm(c, prefix, cats, allCats);
         }
+    }
+
+    //TODO move to javascript
+    public String getAllCatsList() {
+        List<Category> allCats = categoryRepo.findAllByOrderByNameAsc();
+        List<Category> cats = allCats.stream()
+                .filter(x -> null == x.getParent()).collect(Collectors.toList());
+        allCats.removeAll(cats);
+
+        StringBuilder catsForm = new StringBuilder();
+
+
+        for( Category cat : cats) {
+            catsForm.append("<li>");
+            catList(cat,  catsForm, allCats);
+            catsForm.append("</li>");
+        }
+
+        return catsForm.toString();
+    }
+
+    private void catList(Category cat, StringBuilder output, List<Category> allCats) {
+
+        output.append("<a href='/mybooks/cat/" + cat.getSlug() + "'>" + cat.getName()+ "</a>");
+
+
+        List<Category> children = allCats.stream()
+                .filter(x -> cat.getId() == x.getParent().getId()).collect(Collectors.toList());
+        allCats.removeAll(children);
+
+        if(children.size() >0)
+            output.append("<ul>");
+        for(Category c : children) {
+            output.append("<li>");
+            catList(c, output, allCats);
+            output.append("</li>");
+        }
+        if(children.size() >0)
+            output.append("</ul>");
     }
 
 

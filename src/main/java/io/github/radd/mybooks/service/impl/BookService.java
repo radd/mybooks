@@ -59,6 +59,7 @@ public class BookService {
 
         if(newBook != null) {
 
+            //TODO move it to categoryService
             Category cat = newBook.getCategory();
             cat.setBookCount(cat.getBookCount()+1);
             categoryRepo.save(cat);
@@ -72,16 +73,8 @@ public class BookService {
 
     private List<Author> getAuthorsFromString(String data) {
         List<Author> authors = new ArrayList<>();
-        //List<Integer> idList = new ArrayList<>();
+
         if(data != null) {
-
-/*           String[] ids = data.split(",");
-            for(String id : ids) {
-                if(!id.equals("") && id.chars().allMatch( Character::isDigit )) {
-                    idList.add(Integer.parseInt(id));
-                }
-            }*/
-
             List<Long> ids = getIDsFromString(data);
             authors = authorRepo.findByIdIn(ids);
         }
@@ -130,7 +123,7 @@ public class BookService {
     private String getAuthorsFromColl(Collection<Author> authors) {
         return authors.stream()
                 .map(a -> a.getId().toString())
-                .collect(Collectors.joining (",")) + ",";
+                .collect(Collectors.joining (",")) + ","; //TODO remove "," from string -> addBook.jsp refactor js function
 
     }
 

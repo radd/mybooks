@@ -8,6 +8,7 @@
 		<put-attribute name="title" value="Przykładowy tytuł" />
 		<put-attribute name="heading" value="" />
 		<put-attribute name="tagline" value="" />
+		<put-attribute name="sidebar" value="/WEB-INF/tiles/template/sidebar.jsp" />
 		<put-attribute name="navigation" value="/WEB-INF/tiles/template/navigation.jsp" />
 		<put-attribute name="content" value="" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/template/footer.jsp" />

@@ -8,11 +8,6 @@ body {
   }
 }
 
-.card {
-  height: 100%;
-}
-
-
 #authorList {
   width: 100%;
 
@@ -37,4 +32,9 @@ body {
 
 #newAuthorForm {
     display: none;
+}
+
+.sidebar-list ul {
+  list-style: none;
+  padding-left: 30px;
 }

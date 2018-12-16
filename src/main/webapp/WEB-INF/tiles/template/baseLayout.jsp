@@ -44,18 +44,23 @@
 <!-- Page Content -->
 <div class="container">
 
-	<!-- Jumbotron Header -->
-<%--	<header class="jumbotron my-4">
-		<h1 class="display-3">${ dane }</h1>
-		<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-		<a href="#" class="btn btn-primary btn-lg">Call to action!</a>
-	</header>--%>
+	<div class="row">
+		<!-- Sidebar Widgets Column -->
+		<div class="col-md-4">
+			<tiles:insertAttribute name="sidebar" />
 
-</div>
-<!-- /.container -->
+		</div>
+
+
+		<!-- Blog Entries Column -->
+		<div class="col-md-8">
 
 
 <tiles:insertAttribute name="content" />
+
+		</div>
+	</div>
+</div>
 
 <!-- Footer -->
 <tiles:insertAttribute name="footer" />

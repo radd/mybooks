@@ -3,9 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
+
+<h3 class="my-4">Page Heading</h3>
 
             <c:if test="${added}">
                 Added. See <a href="${pageContext.request.contextPath}/author/${authorPath}">${authorName}</a> or <a href="${pageContext.request.contextPath}/authors/add">Add new author</a>
@@ -54,6 +53,3 @@
                 <button type="submit" class="btn btn-primary">Add</button>
             </form:form>
             </c:if>
-        </div>
-    </div>
-</div>
