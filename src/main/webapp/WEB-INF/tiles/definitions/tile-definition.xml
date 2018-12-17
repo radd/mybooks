@@ -61,6 +61,10 @@
 		<put-attribute name="content" value="/WEB-INF/views/book.jsp" />
 	</definition>
 
+	<definition name="books" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/books.jsp" />
+	</definition>
+
 	<definition name="addReview" extends="baseLayout">
 		<put-attribute name="content" value="/WEB-INF/views/addReview.jsp" />
 	</definition>

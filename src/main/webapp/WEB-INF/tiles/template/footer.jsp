@@ -1,6 +1,6 @@
 <footer class="">
     <div class="container">
-        <p>Copyright &copy; Your Website 2018</p>
+        <p>Copyright &copy; My Books 2018</p>
     </div>
     <!-- /.container -->
 </footer>

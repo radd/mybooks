@@ -113,7 +113,7 @@ public class CategoryService {
 
     private void catList(Category cat, StringBuilder output, List<Category> allCats) {
 
-        output.append("<a href='/mybooks/cat/" + cat.getSlug() + "'>" + cat.getName()+ "</a>");
+        output.append("<a href='/mybooks/cat/" + cat.getSlug() + "'>" + cat.getName()+ " ("+cat.getBookCount()+")</a>");
 
 
         List<Category> children = allCats.stream()

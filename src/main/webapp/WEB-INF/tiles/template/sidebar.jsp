@@ -4,6 +4,41 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
 
+<c:if test="${auth.isLoggedIn()}">
+    <div class="card my-4">
+        <h5 class="card-header">User panel</h5>
+        <div class="card-body">
+            <ul class="list-unstyled mb-0">
+                <li>
+                        ${auth.getUserInfo().getUser().getEmail()}
+                </li>
+                <li>
+                    <a href="<c:url value="/logout" />">Wyloguj się</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</c:if>
+
+
+<c:if test="${auth.getUserInfo().isAdmin()}">
+	<div class="card my-4">
+		<h5 class="card-header">Admin panel</h5>
+		<div class="card-body">
+			<ul class="sidebar-list list-unstyled mb-0">
+				<li>
+					<a href="<c:url value="/cat/add" />">Dodaj kategorię</a>
+				</li>
+
+			</ul>
+
+		</div>
+	</div>
+</c:if>
+
+
+
 <div class="card my-4">
 	<h5 class="card-header">Menu</h5>
 	<div class="card-body">
@@ -41,45 +76,22 @@
 	</div>
 </div>
 
-<c:if test="${auth.isLoggedIn()}">
-	<div class="card my-4">
-		<h5 class="card-header">User panel</h5>
-		<div class="card-body">
-			<ul class="list-unstyled mb-0">
-				<li>
-					${auth.getUserInfo().getUser().getEmail()}
-				</li>
-				<li>
-					<a href="<c:url value="/logout" />">Wyloguj się</a>
-				</li>
-			</ul>
-
-		</div>
-	</div>
-</c:if>
-
-<c:if test="${auth.getUserInfo().isAdmin()}">
-<div class="card my-4">
-	<h5 class="card-header">Admin panel</h5>
-	<div class="card-body">
-
-
-	</div>
-</div>
-</c:if>
-
-
 <!-- Categories Widget -->
 <div class="card my-4">
-	<h5 class="card-header">Categories</h5>
-	<div class="card-body">
+    <h5 class="card-header">Kategorie</h5>
+    <div class="card-body">
 
-		<ul class="sidebar-list list-unstyled mb-0">
-			${categoryList}
-		</ul>
+        <ul class="sidebar-list list-unstyled mb-0">
+            ${categoryList}
+        </ul>
 
-	</div>
+    </div>
 </div>
+
+
+
+
+<%--
 
 <!-- Search Widget -->
 <div class="card my-4">
@@ -103,5 +115,6 @@
 		You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
 	</div>
 </div>
+--%>
 
 

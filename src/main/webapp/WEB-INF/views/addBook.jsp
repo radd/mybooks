@@ -3,17 +3,24 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
+<div class="col-md-10">
+    <c:choose>
+        <c:when test="${edit}">
+            <h3 class="my-4">Edytuj książkę</h3>
+        </c:when>
+        <c:otherwise>
+            <h3 class="my-4">Dodaj książkę</h3>
+        </c:otherwise>
+    </c:choose>
+
 
             <c:if test="${added}">
-                Added. See <a href="${pageContext.request.contextPath}/book/${bookPath}">${bookTitle}</a> or <a href="${pageContext.request.contextPath}/books/add">Add new book</a>
+                Dodano. Zobacz <a href="${pageContext.request.contextPath}/book/${bookPath}">${bookTitle}</a> lub <a href="${pageContext.request.contextPath}/books/add">Dodaj nową książkę</a>
 
             </c:if>
 
             <c:if test="${edited}">
-                Edited. See <a href="${bookPath}">${bookTitle}</a>
+                Zapisano. Zobacz <a href="/mybooks/book/${bookPath}">${bookTitle}</a>
 
             </c:if>
 
@@ -27,15 +34,15 @@
             <form:form modelAttribute="book">
                 <form:errors path="*" cssClass="alert alert-danger" element="div" />
                 <div class="form-group">
-                    <label for="title">Title</label>
-                    <form:input type="text" class="form-control" path="title" id="title" value="${book.title}" placeholder="Title"/>
+                    <label for="title">Tytuł</label>
+                    <form:input type="text" class="form-control" path="title" id="title" value="${book.title}" placeholder="Tytuł"/>
                     <form:errors path="title" cssClass="text-danger" />
                 </div>
                 <form:input type="text" id="authors" path="authors" value="${book.authors}" autocomplete="false" hidden="hidden" />
                 <div class="form-group">
-                    <label for="authorSearch">Author</label>
+                    <label for="authorSearch">Autor</label>
                     <select id="authorSearch" class="form-control">
-                        <option value="0">Select</option>
+                        <option value="0">Wybierz</option>
                         <c:forEach items="${authors}" var="author" varStatus="tagStatus">
                             <option value="${author.id}">${author.firstName} ${author.lastName}</option>
                         </c:forEach>
@@ -46,8 +53,8 @@
 
                     <button type="button" id="newAuthorBtn" class="btn btn-link">Nowy autor</button>
                     <div id="newAuthorForm" class="input-group">
-                        <input type="text" id="add_new_author_name" class="form-control" placeholder="First name">
-                        <input type="text" id="add_new_author_lastname" class="form-control" placeholder="Last name">
+                        <input type="text" id="add_new_author_name" class="form-control" placeholder="Imię">
+                        <input type="text" id="add_new_author_lastname" class="form-control" placeholder="Nazwisko">
                         <div class="input-group-append">
                             <button id="add_new_author" class="btn btn-outline-secondary" type="button">Dodaj autora</button>
                         </div>
@@ -55,9 +62,9 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="cats">Category</label>
+                    <label for="cats">Kategoria</label>
                     <form:select path="category" value="${book.category.id}" id="cats" class="form-control">
-                        <form:option value="0" label="Select" />
+                        <form:option value="0" label="Wybierz" />
                         <c:forEach items="${cats}" var="cat">
                             <c:choose>
                                 <c:when test="${cat.id == book.category.id}">
@@ -72,45 +79,43 @@
                     <form:errors path="category" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <form:textarea class="form-control" path="description" value="${book.description}" placeholder="Description"></form:textarea>
+                    <label for="description">Opis</label>
+                    <form:textarea class="form-control" path="description" value="${book.description}" placeholder="Opis"></form:textarea>
                     <form:errors path="description" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
-                    <label for="publishYear">Publish year</label>
-                    <form:input type="text" class="form-control" path="publishYear" id="publishYear" value="${book.publishYear}" placeholder="Publish year"/>
+                    <label for="publishYear">Rok publikacji</label>
+                    <form:input type="text" class="form-control" path="publishYear" id="publishYear" value="${book.publishYear}" placeholder="Rok publikacji"/>
                     <form:errors path="publishYear" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
-                    <label for="pages">Page count</label>
-                    <form:input type="text" class="form-control" path="pages" id="pages" value="${book.pages}" placeholder="Page count"/>
+                    <label for="pages">Liczba stron</label>
+                    <form:input type="text" class="form-control" path="pages" id="pages" value="${book.pages}" placeholder="Liczba stron"/>
                     <form:errors path="pages" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
-                    <label for="originalTitle">Orginal title</label>
-                    <form:input type="text" class="form-control" path="originalTitle" id="originalTitle" value="${book.originalTitle}" placeholder="Orginal title"/>
+                    <label for="originalTitle">Oryginalny tytuł</label>
+                    <form:input type="text" class="form-control" path="originalTitle" id="originalTitle" value="${book.originalTitle}" placeholder="Oryginalny tytuł"/>
                     <form:errors path="originalTitle" cssClass="text-danger" />
                 </div>
 
                 <div class="form-group">
-                    <label for="cover">Cover</label>
-                    <form:input type="text" class="form-control" path="cover" id="cover" value="${book.cover}" placeholder="Cover"/>
+                    <label for="cover">Okładka</label>
+                    <form:input type="text" class="form-control" path="cover" id="cover" value="${book.cover}" placeholder="Okładka"/>
                     <form:errors path="cover" cssClass="text-danger" />
                 </div>
 
                 <div class="form-group">
-                    <label for="cover">Tags</label>
-                    <form:input type="text" class="form-control" path="tags" id="tags" value="${book.tags}" placeholder="Tags"/>
+                    <label for="cover">Tagi</label>
+                    <form:input type="text" class="form-control" path="tags" id="tags" value="${book.tags}" placeholder="Tagi"/>
                     <form:errors path="tags" cssClass="text-danger" />
                 </div>
 
 
 
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Zapisz</button>
             </form:form>
             </c:if>
-        </div>
-    </div>
 </div>
 <script type="text/javascript">
 $(function() {

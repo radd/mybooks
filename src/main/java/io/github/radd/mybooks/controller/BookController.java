@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -48,6 +49,11 @@ public class BookController {
     public String tags(Model model) {
 
         model.addAttribute("title", "All books");
+
+        Collection<Book> books = bookRepo.findAll();
+
+        model.addAttribute("books", books);
+
 
         return "books";
     }
@@ -115,6 +121,7 @@ public class BookController {
 
             model.addAttribute("title", "Edit book: " + book.getTitle());
             model.addAttribute("book", editBook);
+            model.addAttribute("edit", true);
 
             return "addBook";
         }
@@ -139,6 +146,7 @@ public class BookController {
         if(user.getUser().getId() == book.getUser().getId() || user.isAdminOrModerator()) {
             Book editBook = null;
             model.addAttribute("edited", false);
+            model.addAttribute("edit", true);
 
             if (!result.hasErrors()) {
                 editBook = bookService.editBook(bookDto, book);

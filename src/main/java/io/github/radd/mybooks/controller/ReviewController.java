@@ -46,6 +46,7 @@ public class ReviewController {
         if(book != null) {
             model.addAttribute("title", "Add new review to " + book.getTitle());
             model.addAttribute("review", new ReviewDTO());
+            model.addAttribute("book", book);
 
             return "addReview";
         }
@@ -62,6 +63,7 @@ public class ReviewController {
         if(book != null) {
             Review newReview = null;
             model.addAttribute("added", false);
+            model.addAttribute("book", book);
 
             if (!result.hasErrors()) {
                 newReview = reviewService.addReview(reviewDTO, book);
@@ -100,6 +102,8 @@ public class ReviewController {
 
             model.addAttribute("title", "Edit review: " + review.getTitle());
             model.addAttribute("review", editReview);
+            model.addAttribute("reviewTitle", editReview.getTitle());
+            model.addAttribute("edit", true);
 
             return "addReview";
         }
@@ -124,6 +128,7 @@ public class ReviewController {
         if(user.getUser().getId() == review.getUser().getId() || user.isAdminOrModerator()) {
             Review editReview = null;
             model.addAttribute("edited", false);
+            model.addAttribute("edit", true);
 
             if (!result.hasErrors()) {
                 editReview = reviewService.editReview(reviewDTO, review);

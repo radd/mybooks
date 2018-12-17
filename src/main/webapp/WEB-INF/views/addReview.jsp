@@ -3,17 +3,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
+<div class="col-md-12">
 
+    <c:choose>
+        <c:when test="${edit}">
+            <h3 class="my-4">Edytuj recenzję: ${reviewTitle}</h3>
+        </c:when>
+        <c:otherwise>
+            <h3 class="my-4">Dodaj recenzję książki "${book.title}"</h3>
+        </c:otherwise>
+    </c:choose>
             <c:if test="${added}">
-                Added. See <a href="${reviewPath}">${reviewTitle}</a> or <a href="${pageContext.request.contextPath}/reviews/${bookID}/add">Add new review</a>
+                Dodano. Zobacz <a href="/mybooks/review/${reviewPath}">${reviewTitle}</a> lub <a href="${pageContext.request.contextPath}/reviews/${bookID}/add">Dodaj nową recenzję</a>
 
             </c:if>
 
             <c:if test="${edited}">
-                Edited. See <a href="${reviewPath}">${reviewTitle}</a>
+                Zapisno. Zobacz <a href="/mybooks/review/${reviewPath}">${reviewTitle}</a>
 
             </c:if>
 
@@ -27,18 +33,16 @@
             <form:form modelAttribute="review">
                 <form:errors path="*" cssClass="alert alert-danger" element="div" />
                 <div class="form-group">
-                    <label for="title">Title</label>
-                    <form:input type="text" class="form-control" path="title" id="title" value="${review.title}" placeholder="Title"/>
+                    <label for="title">Tytuł</label>
+                    <form:input type="text" class="form-control" path="title" id="title" value="${review.title}" placeholder="Tytuł"/>
                     <form:errors path="title" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
-                    <label for="content">Review</label>
-                    <form:textarea class="form-control" path="content" value="${review.content}" placeholder="Review content"></form:textarea>
+                    <label for="content">Treść recenzji</label>
+                    <form:textarea class="form-control" path="content" value="${review.content}" placeholder="Treść" rows="10"></form:textarea>
                     <form:errors path="content" cssClass="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Zapisz</button>
             </form:form>
             </c:if>
-        </div>
-    </div>
 </div>

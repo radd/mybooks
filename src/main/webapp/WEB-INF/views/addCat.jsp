@@ -3,12 +3,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
 
+<div class="col-md-8">
+    <h3 class="my-4">Dodaj kategorię</h3>
             <c:if test="${added}">
-                Added. See <a href="${pageContext.request.contextPath}/cat/${catPath}">${catName}</a> or <a href="${pageContext.request.contextPath}/cat/add">Add new category</a>
+                Dodano. Zobacz <a href="${pageContext.request.contextPath}/cat/${catPath}">${catName}</a> lub <a href="${pageContext.request.contextPath}/cat/add">Dodaj nową kategorię</a>
 
             </c:if>
 
@@ -22,23 +21,21 @@
                 <form:form modelAttribute="cat">
                     <form:errors path="*" cssClass="alert alert-danger" element="div" />
                     <div class="form-group">
-                        <label for="name">Category name</label>
-                        <form:input type="text" class="form-control" path="name" id="name" value="${cat.name}" placeholder="Category name"/>
+                        <label for="name">Nazwa kategorii</label>
+                        <form:input type="text" class="form-control" path="name" id="name" value="${cat.name}" placeholder="Nazwa kategorii"/>
                         <form:errors path="name" cssClass="text-danger" />
                     </div>
                      <div class="form-group">
-                         <label for="cats">Parent</label>
+                         <label for="cats">Rodzic</label>
                          <form:select path="parent" id="cats" class="form-control">
-                             <form:option value="0" label="None" />
+                             <form:option value="0" label="Brak" />
                              <form:options items="${cats}" itemValue="id" itemLabel="name" />
                          </form:select>
                     </div>
 
 
 
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">Zapisz</button>
                 </form:form>
             </c:if>
-        </div>
-    </div>
 </div>
