@@ -2,6 +2,7 @@ package io.github.radd.mybooks.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @Entity
@@ -109,5 +110,14 @@ public class Review {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    public String getShortContent() {
+        return content.substring(0, Math.min(content.length(), 320)) + "...";
+    }
+
+    public String getDate() {
+        return createDate
+                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
     }
 }

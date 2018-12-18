@@ -5,9 +5,9 @@
 
 
 <div class="col-md-12">
-    <h3 class="my-4">Lista autorów</h3>
-    <c:forEach items="${authors}" var="author" varStatus="tagStatus">
-        <a href="/mybooks/author/${author.slug}">${author.getDisplayName()}</a>
+    <h3 class="my-4">Lista książek: #${tag.name}</h3>
+    <c:forEach items="${books}" var="book" varStatus="tagStatus">
+        <a href="/mybooks/book/${book.slug}">${book.title}</a>
         </br>
     </c:forEach>
 

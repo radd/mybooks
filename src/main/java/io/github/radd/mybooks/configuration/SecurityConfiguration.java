@@ -87,6 +87,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     session.removeAttribute("previousURL");
                     getRedirectStrategy().sendRedirect(request, response, redirectUrl);
                     //TODO if admin and redirectUrl is homePage then redirect to admin panel
+                    //TODO if previousURL is signup then redirect to homepage
                 } else {
                     super.onAuthenticationSuccess(request, response, authentication);
                 }

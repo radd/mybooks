@@ -97,7 +97,10 @@ public class User {
 	}
 
 	public String getDisplayName() {
-		return displayName;
+		if (displayName != null && !displayName.equals(""))
+			return displayName;
+		else
+			return firstName + " " + lastName;
 	}
 
 	public void setDisplayName(String displayName) {

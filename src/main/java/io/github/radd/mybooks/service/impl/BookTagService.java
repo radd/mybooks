@@ -64,7 +64,10 @@ public class BookTagService {
     }
 
     private List<BookTag> prepareTagsByName(Collection<String> tags) {
-        return tags.stream().map(s -> new BookTag(s, getUniqueSlug(s))).collect(Collectors.toList());
+        return tags.stream()
+                .map(s -> new BookTag(s, getUniqueSlug(s)))
+                .filter(bt -> (!bt.getName().equals("")))
+                .collect(Collectors.toList());
     }
 
     private String prepareTagName(String data) {

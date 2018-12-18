@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Collection;
 
 @Controller
 public class AuthorController {
@@ -44,10 +45,30 @@ public class AuthorController {
     @RequestMapping("/authors")
     public String authors(Model model) {
 
-        model.addAttribute("title", "All authors");
+        model.addAttribute("title", "Autorzy");
+
+        Collection<Author> authors = authorRepo.findAll();
+
+        model.addAttribute("authors", authors);
 
         return "authors";
     }
+
+
+    @GetMapping("/author/{slug}")
+    public String authorPage(@PathVariable String slug, Model model) {
+
+        Author author = authorRepo.findBySlug(slug);
+
+        if(author == null)
+            return "404";
+
+        model.addAttribute("title", author.getDisplayName() + "| Autor");
+        model.addAttribute("author", author);
+        return "author";
+    }
+
+
 
     @GetMapping("/authors/add")
     public String authorAddPage(Model model) {
@@ -76,15 +97,6 @@ public class AuthorController {
 
         return "addAuthor";
     }
-
-    @GetMapping("/author/{author}")
-    public String authorPage(@PathVariable String author, Model model) {
-
-        model.addAttribute("title", "another autor");
-        model.addAttribute("greeting", " another author " + author);
-        return "home";
-    }
-
 
     @GetMapping("/authors/edit/{authorID}")
     public String editBook(@PathVariable String authorID, Model model) {

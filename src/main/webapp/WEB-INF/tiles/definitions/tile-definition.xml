@@ -45,12 +45,24 @@
 		<put-attribute name="content" value="/WEB-INF/views/authors.jsp" />
 	</definition>
 
+	<definition name="author" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/author.jsp" />
+	</definition>
+
 	<definition name="addTag" extends="baseLayout">
 		<put-attribute name="content" value="/WEB-INF/views/addTag.jsp" />
 	</definition>
 
+	<definition name="tag" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/tag.jsp" />
+	</definition>
+
 	<definition name="addCat" extends="baseLayout">
 		<put-attribute name="content" value="/WEB-INF/views/addCat.jsp" />
+	</definition>
+
+	<definition name="cat" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/cat.jsp" />
 	</definition>
 
 	<definition name="addBook" extends="baseLayout">
@@ -69,6 +81,13 @@
 		<put-attribute name="content" value="/WEB-INF/views/addReview.jsp" />
 	</definition>
 
+    <definition name="reviews" extends="baseLayout">
+        <put-attribute name="content" value="/WEB-INF/views/reviews.jsp" />
+    </definition>
+
+	<definition name="review" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/review.jsp" />
+	</definition>
 
 
 </tiles-definitions>

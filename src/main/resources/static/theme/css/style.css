@@ -106,7 +106,7 @@ section.books .book_main_list .book:hover .info h5{
 }
 section.books .book_main_list .book .info h5{
   font-size:16px;
-  font-weight:300;
+
   color:#fff;
   position:absolute;
   top: 0;
@@ -128,6 +128,76 @@ section.books .book_main_list .book .cover .back{
 .book-cover {
   max-width: 250px;
 }
+
+
+/* --------- section.book_review ----------- */
+
+
+
+section.book_review .review {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*	border: 1px solid #e5e5e5;
+        border-width:0px 0px 1px 0px;*/
+    padding: 20px 20px;
+    transition: all 0.3s;
+    margin-bottom: 20px;
+    border:1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+section.book_review .review  a:hover{
+    text-decoration: none;
+}
+
+
+
+section.book_review  .review .review_info {
+    display: flex;
+    flex-direction: column;
+}
+
+section.book_review .review .review_info h4 {
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px 0;
+    color: #333;
+}
+section.book_review  .review .description {
+    width: 100%;
+    padding: 10px 0;
+}
+section.book_review .review .description p {
+    font-size: 14px;
+    text-align: justify;
+
+    color: #555;
+}
+
+section.book_review  .review .review_author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 5px;
+}
+section.book_review  .review .review_author .avatar {
+    width:190px;
+    height: 190px;
+    overflow: hidden;
+    text-align: center;
+}
+section.book_review  .review .review_author .avatar img {
+    height: 100%;
+}
+
+
+
+
+
+
+
 
 
 
@@ -193,5 +263,58 @@ section.books .book_main_list .book .cover .back{
 
 
 }
+
+
+/* --------- RDM  REVIEW----------- */
+
+
+@media only screen and (max-width: 1000px)  {
+
+
+    section.book_review .review_wrap .review {
+        flex-direction: column-reverse;
+        padding: 20px 20px;
+    }
+
+    section.book_review .review_wrap .review:nth-of-type(even){
+        flex-direction: column-reverse;
+    }
+
+
+    section.book_review .review_wrap .review .review_info {
+        width: 100%;
+    }
+
+    section.book_review .review_wrap .review .review_author {
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 480px)  {
+
+    section.book_review .review_wrap .review {
+        padding: 20px 15px;
+    }
+
+    section.book_review .review_wrap .review .review_info h4 {
+        font-size: 20px;
+
+    }
+    section.book_review .review_wrap .review .description p {
+        font-size: 15px;
+    }
+
+    section.book_review .review_wrap .review .review_author .avatar {
+        width:150px;
+        height: 150px;
+    }
+
+    section.book_review .review_wrap .review .review_author h4 {
+        font-size: 18px;
+    }
+
+}
+
 
 

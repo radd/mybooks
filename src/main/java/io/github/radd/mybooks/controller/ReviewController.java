@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Collection;
 
 @Controller
 public class ReviewController {
@@ -148,8 +149,24 @@ public class ReviewController {
 
     @GetMapping("/review/{slug}")
     public String reviewPage(@PathVariable String slug, Model model) {
+        Review review = reviewRepo.findBySlug(slug);
 
-        return "home";
+        if(review == null)
+            return "404";
+
+        model.addAttribute("title", review.getTitle() + "| Recenzja");
+        model.addAttribute("review", review);
+        return "review";
+    }
+
+    @GetMapping("/reviews")
+    public String reviewsPage(Model model) {
+        model.addAttribute("title", "Recenzje");
+
+        Collection<Review> reviews = reviewRepo.findAll();
+
+        model.addAttribute("reviews", reviews);
+        return "reviews";
     }
 
 

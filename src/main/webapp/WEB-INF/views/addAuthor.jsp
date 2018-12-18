@@ -4,15 +4,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 
 
-<h3 class="my-4">Page Heading</h3>
+<h3 class="my-4">Dodaj autora</h3>
 
             <c:if test="${added}">
-                Added. See <a href="${pageContext.request.contextPath}/author/${authorPath}">${authorName}</a> or <a href="${pageContext.request.contextPath}/authors/add">Add new author</a>
+                Dodano. Zobacz <a href="${pageContext.request.contextPath}/author/${authorPath}">${authorName}</a> lub <a href="${pageContext.request.contextPath}/authors/add">Dodaj nowego autora</a>
 
             </c:if>
 
             <c:if test="${edited}">
-                Edited. See <a href="${pageContext.request.contextPath}/author/${authorPath}">${authorName}</a>
+                Zapisano. Zobacz <a href="${pageContext.request.contextPath}/author/${authorPath}">${authorName}</a>
 
             </c:if>
 
@@ -26,30 +26,30 @@
             <form:form modelAttribute="author">
                 <form:errors path="*" cssClass="alert alert-danger" element="div" />
                 <div class="form-group">
-                    <label for="firstname">First name</label>
-                    <form:input type="text" class="form-control" path="firstName" id="firstname" value="${author.firstName}" placeholder="First name"/>
+                    <label for="firstname">Imię</label>
+                    <form:input type="text" class="form-control" path="firstName" id="firstname" value="${author.firstName}" placeholder="Imię"/>
                     <form:errors path="firstName" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
-                    <label for="lastname">Last name</label>
-                    <form:input type="text" class="form-control" path="lastName" id="lastname" value="${author.lastName}" placeholder="Last name"/>
+                    <label for="lastname">Nazwisko</label>
+                    <form:input type="text" class="form-control" path="lastName" id="lastname" value="${author.lastName}" placeholder="Nazwisko"/>
                     <form:errors path="lastName" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
-                    <label for="dateOfBirth">Date of birth</label>
-                    <form:input type="text" class="form-control" path="dateOfBirth" id="dateOfBirth" value="${author.dateOfBirth}" placeholder="yyyy-mm-dd"/>
+                    <label for="dateOfBirth">Data urodzenia</label>
+                    <form:input type="text" class="form-control" path="dateOfBirth" id="dateOfBirth" value="${author.dateOfBirth}" placeholder="np. 1990-08-03"/>
                     <form:errors path="dateOfBirth" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <form:textarea class="form-control" path="description" value="${author.description}" placeholder="Description"></form:textarea>
+                    <label for="description">Opis</label>
+                    <form:textarea class="form-control" path="description" value="${author.description}" placeholder="Opis"></form:textarea>
                     <form:errors path="description" cssClass="text-danger" />
                 </div>
                 <div class="form-group">
-                    <label for="photo">Photo</label>
-                    <form:input type="text" class="form-control" path="photo" id="photo" value="${author.photo}" placeholder="Photo"/>
+                    <label for="photo">Zdjęcie</label>
+                    <form:input type="text" class="form-control" path="photo" id="photo" value="${author.photo}" placeholder="Zdjęcie"/>
                     <form:errors path="photo" cssClass="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Zapisz</button>
             </form:form>
             </c:if>

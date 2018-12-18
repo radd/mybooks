@@ -1,20 +1,21 @@
 package io.github.radd.mybooks.controller;
 
+import io.github.radd.mybooks.domain.Book;
 import io.github.radd.mybooks.domain.Category;
 import io.github.radd.mybooks.domain.dto.CategoryDTO;
+import io.github.radd.mybooks.domain.repository.BookRepository;
+import io.github.radd.mybooks.domain.repository.CategoryRepository;
 import io.github.radd.mybooks.service.impl.CategoryService;
 import io.github.radd.mybooks.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -22,6 +23,12 @@ public class CategoryController {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    CategoryRepository categoryRepo;
+
+    @Autowired
+    BookRepository bookRepo;
 
     @RequestMapping("/cats")
     public String tags(Model model) {
@@ -69,6 +76,25 @@ public class CategoryController {
         model.addAttribute("cat", new CategoryDTO());
 
         return "addCat";
+    }
+
+    @GetMapping("/cat/{slug}")
+    public String editPage(@PathVariable String slug, Model model) {
+        Category cat = categoryRepo.findBySlug(slug);
+
+        if(cat == null)
+            return "404";
+
+        Collection<Book> books = bookRepo.findAllByCategory(cat);
+
+
+        model.addAttribute("title", cat.getName() + "| Kategoria");
+        model.addAttribute("cat", cat);
+        model.addAttribute("books", books);
+        return "cat";
+
+
+
     }
 
 }

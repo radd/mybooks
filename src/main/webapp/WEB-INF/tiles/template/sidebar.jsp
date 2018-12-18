@@ -88,6 +88,17 @@
     </div>
 </div>
 
+<div class="card my-4">
+    <h5 class="card-header">Tagi</h5>
+    <div class="card-body">
+
+		<c:forEach items="${tagList}" var="tag" varStatus="tagStatus">
+			<a href="/mybooks/tag/${tag.slug}">#${tag.name}</a>,
+		</c:forEach>
+
+    </div>
+</div>
+
 
 
 

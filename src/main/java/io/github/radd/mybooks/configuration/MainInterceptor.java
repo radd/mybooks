@@ -1,5 +1,6 @@
 package io.github.radd.mybooks.configuration;
 
+import io.github.radd.mybooks.domain.repository.BookTagRepository;
 import io.github.radd.mybooks.domain.repository.UserRepository;
 import io.github.radd.mybooks.service.impl.CategoryService;
 import io.github.radd.mybooks.utils.auth.AuthUser;
@@ -23,6 +24,9 @@ public class MainInterceptor implements HandlerInterceptor {
     @Autowired
     CategoryService categoryService;
 
+    @Autowired
+    private BookTagRepository bookTagRepo;
+
     @Override
     public boolean preHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -41,6 +45,7 @@ public class MainInterceptor implements HandlerInterceptor {
         if (modelAndView != null) {
             modelAndView.getModelMap().addAttribute("auth", auth);
             modelAndView.getModelMap().addAttribute("categoryList", categoryService.getAllCatsList());
+            modelAndView.getModelMap().addAttribute("tagList", bookTagRepo.findAll());
 
         }
 
