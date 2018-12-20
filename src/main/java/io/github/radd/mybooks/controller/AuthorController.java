@@ -117,6 +117,7 @@ public class AuthorController {
 
             model.addAttribute("title", "Edit author: " + author.getDisplayName());
             model.addAttribute("author", editAuthor);
+            model.addAttribute("edit", true);
 
             return "addAuthor";
         }
@@ -141,6 +142,7 @@ public class AuthorController {
         if(user.getUser().getId() == author.getUser().getId() || user.isAdminOrModerator()) {
             Author editAuthor = null;
             model.addAttribute("edited", false);
+            model.addAttribute("edit", true);
 
             if (!result.hasErrors()) {
                 editAuthor = authorService.editAuthor(authorDTO, author);

@@ -12,7 +12,19 @@
     Tagi:
     <c:forEach items="${book.bookTags}" var="tag" varStatus="tagStatus">
         <a href="/mybooks/tag/${tag.slug}">${tag.name}</a>,
-    </c:forEach>
+    </c:forEach><br />
+    Ocena: ${book.stars} <br />
+    Twoja ocena:
+    <select id="ratingBook" class="form-control">
+        <option value="0">Oceń</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+    <input type="text" id="bookID" value="${book.id}" autocomplete="false" hidden="hidden" />
     </br></br>
             Opis: ${book.description} </br></br>
             Autor:
@@ -39,3 +51,47 @@
     </c:forEach>
 
 </div>
+
+<script type="text/javascript">
+    $(function() {
+
+        $('#ratingBook').on("click", "option", function () {
+            var ratingSelected = $(this);
+            var stars = ratingSelected.val();
+            var bookID = $("#bookID").val();
+
+            if (stars != 0) {
+                var rating = {
+                    stars: stars,
+                    bookID: bookID
+                }
+
+                $.ajax({
+                    url: 'http://localhost:8080/mybooks/api/rating/add',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(rating)
+                }).done(addRatingRes)
+                    .fail(function(e) {
+                            console.log("ERROR: ", e);
+                        }
+                    );
+
+            }
+
+        });
+
+        function addRatingRes (res) {
+            console.log(res);
+            if(res.status === "done"){
+                console.log("done");
+
+
+            }
+
+        }
+
+
+    })
+</script>

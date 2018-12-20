@@ -3,8 +3,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 
-
-<h3 class="my-4">Dodaj autora</h3>
+<div class="col-md-10">
+    <c:choose>
+        <c:when test="${edit}">
+            <h3 class="my-4">Edytuj autora</h3>
+        </c:when>
+        <c:otherwise>
+            <h3 class="my-4">Dodaj autora</h3>
+        </c:otherwise>
+    </c:choose>
 
             <c:if test="${added}">
                 Dodano. Zobacz <a href="${pageContext.request.contextPath}/author/${authorPath}">${authorName}</a> lub <a href="${pageContext.request.contextPath}/authors/add">Dodaj nowego autora</a>
@@ -53,3 +60,4 @@
                 <button type="submit" class="btn btn-primary">Zapisz</button>
             </form:form>
             </c:if>
+</div>
