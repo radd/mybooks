@@ -225,6 +225,29 @@ section.book_review  .review .review_author .avatar img {
 }
 
 
+/* -------------------- */
+
+.vote-box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.vote-box button {
+    flex-grow: 1;
+    margin-right: 10px;
+
+}
+.vote-box button:last-of-type {
+    margin-right: 0px;
+
+}
+
+
+
+
+
+
 
 
 
@@ -347,6 +370,8 @@ section.book_review  .review .review_author .avatar img {
     }
 
 }
+
+
 
 
 

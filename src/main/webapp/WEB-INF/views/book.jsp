@@ -13,7 +13,7 @@
     <c:forEach items="${book.bookTags}" var="tag" varStatus="tagStatus">
         <a href="/mybooks/tag/${tag.slug}">${tag.name}</a>,
     </c:forEach><br />
-    Ocena: ${book.stars} <br />
+    Ocena: ${book.stars}/6 <br />
     Liczba ocen: ${book.ratingCount}
 
 <c:if test="${auth.isLoggedIn()}">
@@ -33,6 +33,16 @@
         <option value="6">6</option>
     </select>
     <input type="text" id="bookID" value="${book.id}" autocomplete="false" hidden="hidden" />
+    <br />
+
+    <div class="vote-box">
+    <button type="button" id="read" class="btn btn-outline-success">Przeczytałem</button>
+    <button type="button" id="reading" class="btn btn-outline-success">Czytam</button>
+    <button type="button" id="wantRead" class="btn btn-outline-success">Chcę przeczytać</button>
+    </div>
+
+
+
 </c:if>
 
     </br></br>
@@ -73,22 +83,22 @@
             var bookID = $("#bookID").val();
 
             if (stars != 0) {
-                var rating = {
-                    stars: stars,
-                    bookID: bookID
-                }
+                    var rating = {
+                        stars: stars,
+                        bookID: bookID
+                    }
 
-                $.ajax({
-                    url: 'http://localhost:8080/mybooks/api/rating/add',
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(rating)
-                }).done(addRatingRes)
-                    .fail(function(e) {
-                            console.log("ERROR: ", e);
-                        }
-                    );
+                    $.ajax({
+                        url: 'http://localhost:8080/mybooks/api/rating/add',
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(rating)
+                    }).done(addRatingRes)
+                        .fail(function(e) {
+                                console.log("ERROR: ", e);
+                            }
+                        );
 
             }
 
@@ -102,6 +112,90 @@
 
             }
 
+        }
+
+
+        $('#read').on("click", function () {
+            preapareVoteBook("READ", $(this));
+        });
+        $('#reading').on("click", function () {
+            preapareVoteBook("READING", $(this));
+        });
+        $('#wantRead').on("click", function () {
+            preapareVoteBook("WANT_READ", $(this));
+        });
+
+        function preapareVoteBook(voteType, el) {
+            if(
+                (
+                    voteType === "READ" ||
+                    voteType === "READING" ||
+                    voteType === "WANT_READ"
+                )
+                && el.hasClass("active")
+            )
+            {
+                voteBook("REMOVE");
+            }
+            else {
+                voteBook(voteType);
+            }
+        }
+
+        function voteBook(voteType) {
+            var bookID = $("#bookID").val();
+            var vote = {
+                voteType: voteType,
+                bookID: bookID
+            }
+
+            $.ajax({
+                url: 'http://localhost:8080/mybooks/api/vote_book/',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(vote)
+            }).done(voteBookRes)
+                .fail(function(e) {
+                        console.log("ERROR: ", e);
+                    }
+                );
+        }
+
+        function voteBookRes (res) {
+            console.log(res);
+            if(res.status === "done"){
+                console.log("done");
+                showVoteBook(res.data);
+
+            }
+
+        }
+
+        function showVoteBook (data) {
+            $('#read').removeClass("active");
+            $('#reading').removeClass("active");
+            $('#wantRead').removeClass("active");
+
+            if(data.voteType === "READ"){
+                $('#read').addClass("active");
+            }
+            else if(data.voteType === "READING"){
+                $('#reading').addClass("active");
+            }
+            else if(data.voteType === "WANT_READ"){
+                $('#wantRead').addClass("active");
+            }
+
+            $(":focus").blur();
+        }
+
+        <c:if test="${not empty vote}">
+        selectVoteBook("<c:out value="${vote.voteType}"/>");
+        </c:if>
+
+        function selectVoteBook(voteType) {
+            showVoteBook ({voteType: voteType})
         }
 
 
