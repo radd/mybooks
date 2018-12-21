@@ -9,6 +9,7 @@
             <img class="book-cover" src="${book.cover}"/> </br>
             Tytuł: ${review.title} </br>
             Data dodania: ${review.getDate()} </br>
+            Liczba wyświetleń: ${review.viewCount} </br>
             Autor: ${review.user.getDisplayName()} </br> </br>
             Treść: ${review.content} </br></br>
     Książka:  <a href="/mybooks/book/${review.book.slug}">${review.book.title}</a> </br>

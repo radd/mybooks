@@ -17,6 +17,7 @@ import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Service
 public class ReviewService {
@@ -86,5 +87,10 @@ public class ReviewService {
         Review editReview = reviewRepo.save(review);
 
         return editReview;
+    }
+
+    public void incrementViewCount(Review review) {
+        review.setViewCount(review.getViewCount()+1);
+        reviewRepo.save(review);
     }
 }
