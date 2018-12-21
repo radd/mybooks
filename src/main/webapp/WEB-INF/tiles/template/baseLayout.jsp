@@ -23,12 +23,16 @@
 	<script src="/mybooks/theme/lib/jquery/jquery.min.js"></script>
 	<script src="/mybooks/theme/lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/mybooks/theme/lib/lodash/lodash.min.js"></script>
-
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<script src="/mybooks/theme/js/main.js"></script>
 </head>
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 	<div class="container">
+		<button id="toggleSidebarBtn" class="navbar-toggler" type="button">
+			<i class="fas fa-align-left"></i>
+		</button>
 		<a class="navbar-brand" href="<c:url value="/" />">My Books</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -46,7 +50,7 @@
 
 	<div class="row">
 		<!-- Sidebar Widgets Column -->
-		<div class="col-md-4">
+		<div id="sidebar" class="col-md-4">
 			<tiles:insertAttribute name="sidebar" />
 
 		</div>

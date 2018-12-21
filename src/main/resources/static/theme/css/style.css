@@ -8,6 +8,38 @@ body {
   }
 }
 
+
+#sidebar.mobile-sidebar {
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    height: calc(100% - 56px);
+    top: 56px;
+    background: #fff;
+    overflow-y: scroll;
+    transform: translateX(-101%);
+    transition: .3s all ease-out;
+}
+
+#sidebar.active {
+    transform: translateX(0);
+}
+
+#toggleSidebarBtn {
+    font-size: 26px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    
+#sidebar {
+    display: none;
+}
+
+
+}
+
 #authorList {
   width: 100%;
 
