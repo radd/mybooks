@@ -3,10 +3,12 @@ package io.github.radd.mybooks.controller;
 import io.github.radd.mybooks.domain.Author;
 import io.github.radd.mybooks.domain.Book;
 import io.github.radd.mybooks.domain.Category;
+import io.github.radd.mybooks.domain.Rating;
 import io.github.radd.mybooks.domain.dto.AuthorSearchDTO;
 import io.github.radd.mybooks.domain.dto.BookDTO;
 import io.github.radd.mybooks.domain.repository.AuthorRepository;
 import io.github.radd.mybooks.domain.repository.BookRepository;
+import io.github.radd.mybooks.domain.repository.RatingRepository;
 import io.github.radd.mybooks.service.impl.BookService;
 import io.github.radd.mybooks.service.impl.CategoryService;
 import io.github.radd.mybooks.utils.WebUtils;
@@ -41,6 +43,9 @@ public class BookController {
 
     @Autowired
     AuthUser auth;
+
+    @Autowired
+    RatingRepository ratingRepo;
 
     @Value("#{servletContext.contextPath}")
     private String servletContextPath;
@@ -170,6 +175,12 @@ public class BookController {
         if(book != null) {
             model.addAttribute("title", book.getTitle() + "| Book");
             model.addAttribute("book", book);
+
+            if(auth.isLoggedIn()) {
+                Rating rating = ratingRepo.findByBookAndUser(book, auth.getUserInfo().getUser());
+                model.addAttribute("rating", rating);
+            }
+
             return "book";
         }
 

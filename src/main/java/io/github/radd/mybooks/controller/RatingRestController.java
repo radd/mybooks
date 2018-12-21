@@ -32,7 +32,7 @@ public class RatingRestController {
         Rating rating = ratingService.addRating(ratingDTO);
         Response response = new Response();
         if(rating != null)
-            response.setStatus(Response.DONE);
+            response.set(ObjectMapperUtils.map(rating, RatingDTO.class));
 
         return response;
     }

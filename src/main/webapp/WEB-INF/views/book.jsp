@@ -14,7 +14,15 @@
         <a href="/mybooks/tag/${tag.slug}">${tag.name}</a>,
     </c:forEach><br />
     Ocena: ${book.stars} <br />
+    Liczba ocen: ${book.ratingCount}
+
+<c:if test="${auth.isLoggedIn()}">
+    <br />
     Twoja ocena:
+    <c:if test="${not empty rating}">
+    <span id="userStars">${rating.stars}</span>  <br />
+    </c:if>
+
     <select id="ratingBook" class="form-control">
         <option value="0">Oceń</option>
         <option value="1">1</option>
@@ -25,20 +33,24 @@
         <option value="6">6</option>
     </select>
     <input type="text" id="bookID" value="${book.id}" autocomplete="false" hidden="hidden" />
+</c:if>
+
     </br></br>
             Opis: ${book.description} </br></br>
             Autor:
             <c:forEach items="${book.authors}" var="author" varStatus="tagStatus">
     <a href="/mybooks/author/${author.slug}">${author.getDisplayName()}</a>,
             </c:forEach>
-            </br>
+
 
     <c:if test="${auth.getUserInfo().isAdminOrModerator()}">
+        </br>
         <a href="/mybooks/books/edit/${book.id}">Edytuj książkę</a>
 
     </c:if>
-    </br>
+
     <c:if test="${auth.isLoggedIn()}">
+        </br>
         <a href="/mybooks/reviews/${book.id}/add">Dodaj recenzję</a>
 
     </c:if>
@@ -86,7 +98,7 @@
             console.log(res);
             if(res.status === "done"){
                 console.log("done");
-
+                $("#userStars").text(res.data.stars);
 
             }
 
