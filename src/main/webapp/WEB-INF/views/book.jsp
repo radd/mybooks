@@ -67,8 +67,8 @@
 <script type="text/javascript">
     $(function() {
 
-        $('#ratingBook').on("click", "option", function () {
-            var ratingSelected = $(this);
+        $('#ratingBook').on("change", function () {
+            var ratingSelected = $(this).find(":selected");
             var stars = ratingSelected.val();
             var bookID = $("#bookID").val();
 

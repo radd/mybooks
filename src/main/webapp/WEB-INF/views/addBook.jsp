@@ -120,8 +120,8 @@
 <script type="text/javascript">
 $(function() {
 
-    $('#authorSearch').on("click", "option", function () {
-        var authorSelected = $(this);
+    $('#authorSearch').on("change", function () {
+        var authorSelected = $(this).find(":selected");
         var id = authorSelected.val();
         var name = authorSelected.text();
 
