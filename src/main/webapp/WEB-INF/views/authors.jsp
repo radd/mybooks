@@ -15,7 +15,10 @@
         <ul class="pagination justify-content-center">
 
             <%--Prev--%>
-            <c:url value="/authors" var="prev">
+
+            <c:set var="urlPage" value="/authors"></c:set>
+
+            <c:url value="${urlPage}" var="prev">
                 <c:param name="page" value="${page-1}"/>
                 <c:if test="${not empty sort}">
                     <c:param name="sort" value="${sort}"/>
@@ -37,17 +40,17 @@
 
             <c:choose>
                 <c:when test="${page - 3 >= 3}">
-                    <c:url value="/authors" var="first">
+                    <c:url value="${urlPage}" var="first">
                         <c:param name="page" value="1"/>
                         <c:if test="${not empty sort}">
                             <c:param name="sort" value="${sort}"/>
                         </c:if>
                     </c:url>
                     <li class="page-item"><a class="page-link" href="<c:out value="${first}" />">1</a></li>
-                    <li class="page-item"><a class="page-link page-separator" href="#">. .</a></li>
+                    <li class="page-item"><span class="page-link page-separator">. .</span></li>
 
                     <c:forEach begin="${page - 3}" end="${page - 1}" step="1" varStatus="i">
-                        <c:url value="/authors" var="url">
+                        <c:url value="${urlPage}" var="url">
                             <c:param name="page" value="${i.index}"/>
                             <c:if test="${not empty sort}">
                                 <c:param name="sort" value="${sort}"/>
@@ -59,7 +62,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:forEach begin="1" end="${page - 1 >= 1 ? page -1 : 0}" step="1" varStatus="i">
-                        <c:url value="/authors" var="url">
+                        <c:url value="${urlPage}" var="url">
                             <c:param name="page" value="${i.index}"/>
                             <c:if test="${not empty sort}">
                                 <c:param name="sort" value="${sort}"/>
@@ -70,12 +73,12 @@
                     </c:forEach>
                 </c:otherwise>
             </c:choose>
-            <li class="page-item active"><a class="page-link" href="#">${page} <span class="sr-only">(current)</span></a></li>
+            <li class="page-item active"><span class="page-link" >${page} <span class="sr-only">(current)</span></span></li>
 
             <c:choose>
                 <c:when test="${page + 3 <= totalPage - 2}">
                     <c:forEach begin="${page + 1}" end="${page + 3}" step="1" varStatus="i">
-                        <c:url value="/authors" var="url">
+                        <c:url value="${urlPage}" var="url">
                             <c:param name="page" value="${i.index}"/>
                             <c:if test="${not empty sort}">
                                 <c:param name="sort" value="${sort}"/>
@@ -84,8 +87,8 @@
                         <li class="page-item page-mobile-hidden"><a class="page-link" href="<c:out value="${url}" />">${i.index}</a></li>
 
                     </c:forEach>
-                    <li class="page-item"><a class="page-link page-separator" href="#">. .</a></li>
-                    <c:url value="/authors" var="last">
+                    <li class="page-item"><span class="page-link page-separator">. .</span></li>
+                    <c:url value="${urlPage}" var="last">
                         <c:param name="page" value="${totalPage}"/>
                         <c:if test="${not empty sort}">
                             <c:param name="sort" value="${sort}"/>
@@ -96,7 +99,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:forEach begin="${page + 1}" end="${totalPage}" step="1" varStatus="i">
-                        <c:url value="/authors" var="url">
+                        <c:url value="${urlPage}" var="url">
                             <c:param name="page" value="${i.index}"/>
                             <c:if test="${not empty sort}">
                                 <c:param name="sort" value="${sort}"/>
@@ -109,7 +112,7 @@
             </c:choose>
 
             <%--Next--%>
-            <c:url value="/authors" var="next">
+            <c:url value="${urlPage}" var="next">
                 <c:param name="page" value="${page+1}"/>
                 <c:if test="${not empty sort}">
                     <c:param name="sort" value="${sort}"/>
