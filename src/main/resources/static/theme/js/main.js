@@ -40,7 +40,52 @@ $(function() {
 
     $(window).on('resize', function() {
         changeSidebar();
+        paginationChange();
     });
+
+    paginationChange();
+
+    function paginationChange() {
+
+        $(".page-prev-btn").text("Poprzednia");
+        $(".page-next-btn").text("Następna");
+
+        $(".page-nav .page-separator").each(function(){
+            $(this).text(". .");
+        });
+
+        $(".page-nav .page-mobile-hidden").each(function(){
+            $(this).css("display", "block");
+        });
+
+
+        if ($(window).width() < 1200) {
+            $(".page-prev-btn").text("<");
+            $(".page-next-btn").text(">");
+        }
+
+        if ($(window).width() < 992) {
+
+            $(".page-nav .page-separator").each(function(){
+                $(this).text(".");
+            });
+
+            if($('.page-mobile-hidden').length == 6) {
+                $(".page-nav .page-mobile-hidden").first().css("display", "none");
+                $(".page-nav .page-mobile-hidden").last().css("display", "none");
+            }
+        }
+
+        if ($(window).width() < 500) {
+            $(".page-nav .page-mobile-hidden").each(function(){
+                $(this).css("display", "none");
+            });
+        }
+
+
+
+
+    }
 
 
 });

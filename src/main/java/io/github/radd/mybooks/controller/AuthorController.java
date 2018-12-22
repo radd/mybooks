@@ -9,6 +9,10 @@ import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,14 +46,21 @@ public class AuthorController {
         return "home";
     }
 
-    @RequestMapping("/authors")
-    public String authors(Model model) {
+    @GetMapping("/authors")
+    public String authors(@PageableDefault(size = 1, sort = "lastName", direction = Sort.Direction.ASC) Pageable pageable,
+                              @RequestParam(required = false) String sort,
+                              Model model) {
+        //?page=0&sort=id,DESC
 
-        model.addAttribute("title", "Autorzy");
+        Page<Author> authors = authorRepo.findAll(pageable);
+        int page = pageable.getPageNumber() + 1;
+        int totalPage = authors.getTotalPages();
 
-        Collection<Author> authors = authorRepo.findAll();
-
-        model.addAttribute("authors", authors);
+        model.addAttribute("title", "Autorzy | Strona " + page);
+        model.addAttribute("authors", authors.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("sort", sort);
 
         return "authors";
     }
