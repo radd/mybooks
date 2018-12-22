@@ -260,7 +260,13 @@
 
 
             }
-            currentVote = voteType;
+
+            if(voteType !== "REMOVE") {
+                currentVote = voteType;
+            } else {
+                currentVote = "";
+            }
+
         }
         </c:if>
 
