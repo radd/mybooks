@@ -36,9 +36,18 @@
     <br />
 
     <div class="vote-box">
-    <button type="button" id="read" class="btn btn-outline-success">Przeczytałem</button>
-    <button type="button" id="reading" class="btn btn-outline-success">Czytam</button>
-    <button type="button" id="wantRead" class="btn btn-outline-success">Chcę przeczytać</button>
+        <div class="vote-type">
+            <div id="voteCountRead" class="vote-count"><c:out value="${not empty vote_READ ? vote_READ : 0}"/></div>
+            <button type="button" id="read" class="btn btn-outline-success">Przeczytane</button>
+        </div>
+        <div class="vote-type">
+            <div id="voteCountReading" class="vote-count"><c:out value="${not empty vote_READING ? vote_READING : 0}"/></div>
+            <button type="button" id="reading" class="btn btn-outline-success">Czytam</button>
+        </div>
+        <div class="vote-type">
+            <div id="voteCountWantRead" class="vote-count"><c:out value="${not empty vote_WANT_READ ? vote_WANT_READ : 0}"/></div>
+            <button type="button" id="wantRead" class="btn btn-outline-success">Chcę przeczytać</button>
+        </div>
     </div>
 
 
@@ -115,6 +124,8 @@
         }
 
 
+        var currentVote = "";
+
         $('#read').on("click", function () {
             preapareVoteBook("READ", $(this));
         });
@@ -140,6 +151,9 @@
             else {
                 voteBook(voteType);
             }
+
+
+
         }
 
         function voteBook(voteType) {
@@ -166,8 +180,8 @@
             console.log(res);
             if(res.status === "done"){
                 console.log("done");
+                prepareIncVote(res.data.voteType);
                 showVoteBook(res.data);
-
             }
 
         }
@@ -191,11 +205,59 @@
         }
 
         <c:if test="${not empty vote}">
-        selectVoteBook("<c:out value="${vote.voteType}"/>");
+        currentVote = "<c:out value="${vote.voteType}"/>";
+        selectVoteBook(currentVote);
         </c:if>
+
 
         function selectVoteBook(voteType) {
             showVoteBook ({voteType: voteType})
+        }
+
+
+        function prepareIncVote(voteType) {
+            if(voteType === "READ"){
+                incVote($('#voteCountRead'));
+            }
+            else if(voteType === "READING"){
+                incVote($('#voteCountReading'));
+            }
+            else if(voteType === "WANT_READ"){
+                incVote($('#voteCountWantRead'));
+            }
+
+            decVote(voteType);
+        }
+
+        function incVote(el) {
+            var count = parseInt(el.text());
+            if(count >=0) {
+                count = count + 1;
+            }
+
+            el.text(count);
+        }
+
+        function decVote(voteType) {
+            if(currentVote !== "") {
+                var el = $('#voteCountRead');
+
+                if(currentVote === "READING"){
+                    el = $('#voteCountReading');
+                }
+                else if(currentVote === "WANT_READ"){
+                    el = $('#voteCountWantRead');
+                }
+
+                var count = parseInt(el.text());
+                if(count > 0) {
+                    count = count - 1;
+                }
+                el.text(count);
+
+
+            }
+            currentVote = voteType;
         }
 
 

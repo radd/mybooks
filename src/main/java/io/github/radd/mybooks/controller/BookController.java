@@ -183,6 +183,12 @@ public class BookController {
 
                 Vote vote = voteRepo.findByBookAndUser(book, auth.getUserInfo().getUser());
                 model.addAttribute("vote", vote);
+
+                List<Object[]> voteAll = voteRepo.countAllVote(book.getId());
+                for(Object[] v : voteAll) {
+                    model.addAttribute("vote_" + v[0], v[1]);
+                }
+
             }
 
             return "book";
