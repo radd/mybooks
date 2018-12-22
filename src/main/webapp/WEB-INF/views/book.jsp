@@ -34,6 +34,7 @@
     </select>
     <input type="text" id="bookID" value="${book.id}" autocomplete="false" hidden="hidden" />
     <br />
+</c:if>
 
     <div class="vote-box">
         <div class="vote-type">
@@ -52,7 +53,6 @@
 
 
 
-</c:if>
 
     </br></br>
             Opis: ${book.description} </br></br>
@@ -83,8 +83,11 @@
 
 </div>
 
+
+
 <script type="text/javascript">
     $(function() {
+        <c:if test="${auth.isLoggedIn()}">
 
         $('#ratingBook').on("change", function () {
             var ratingSelected = $(this).find(":selected");
@@ -259,7 +262,14 @@
             }
             currentVote = voteType;
         }
+        </c:if>
 
+        <c:if test="${not auth.isLoggedIn()}">
+
+        $('.vote-box button').on("click", function () {
+            window.location.href = "/mybooks/login";
+        });
+        </c:if>
 
     })
 </script>

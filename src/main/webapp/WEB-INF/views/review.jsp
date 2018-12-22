@@ -5,7 +5,6 @@
 
 <div class="col-md-12">
     <h3 class="my-4">Recenzja: ${review.title}</h3>
-
             <img class="book-cover" src="${book.cover}"/> </br>
             Tytuł: ${review.title} </br>
             Data dodania: ${review.getDate()} </br>
