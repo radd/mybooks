@@ -8,6 +8,7 @@ public class PageResponse<T> {
     private int page;
     private int totalPage;
     private int count;
+    private Long totalCount;
     private int perPage;
     private String sort;
     private String size;
@@ -71,5 +72,13 @@ public class PageResponse<T> {
 
     public void setPerPage(int perPage) {
         this.perPage = perPage;
+    }
+
+    public Long getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(Long totalCount) {
+        this.totalCount = totalCount;
     }
 }

@@ -78,6 +78,7 @@ public class CommentService {
         PageResponse<CommentResponse> pageResponse= new PageResponse<>();
         pageResponse.setContent(commentToResponse(comments.getContent()));
         pageResponse.setCount(comments.getNumberOfElements());
+        pageResponse.setTotalCount(comments.getTotalElements());
         pageResponse.setPage(page);
         pageResponse.setTotalPage(totalPage);
         pageResponse.setPerPage(comments.getSize());
@@ -98,6 +99,10 @@ public class CommentService {
     }
 
     private CommentResponse commentToResponse(Comment comment) {
+
+        if(comment == null)
+            return null;
+
         CommentResponse res = new CommentResponse();
         res.setId(comment.getId());
         res.setContent(comment.getContent());

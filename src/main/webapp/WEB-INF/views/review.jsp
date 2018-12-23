@@ -18,7 +18,7 @@
     </c:if>
     </br>
 
-    Komentarze (${commentCount}):
+    Komentarze (<span id="commentCount"></span>):
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentModal">
        Dodaj komentarz
     </button>
@@ -48,9 +48,15 @@
         </div>
     </div>
 
-    <c:forEach items="${review.comments}" var="comment" varStatus="status">
+<%--    <c:forEach items="${review.comments}" var="comment" varStatus="status">
        ${comment.content}, Autor: ${comment.user.getDisplayName()}, Data: ${comment.getDate()} <br />
-    </c:forEach><br />
+    </c:forEach><br />--%>
+
+    <div id="comments">
+
+    </div>
+
+        <button type="button" id="moreComments" class="btn">Więcej</button>
 
 
 <script type="text/javascript">
@@ -90,6 +96,58 @@ $(function() {
         }
 
     }
+
+    var commentsPage = 1;
+    var commentsDisabled = false;
+    getComments();
+
+    function getComments() {
+        if(commentsDisabled)
+            return;
+        $.ajax({
+            url: 'http://localhost:8080/mybooks/api/comment/get/${review.id}?page=' + commentsPage,
+            type: 'get'
+        }).done(getCommentsRes)
+            .fail(function (e) {
+                    console.log("ERROR: ", e);
+                }
+            );
+    }
+
+
+
+    function getCommentsRes(res) {
+        //console.log(res);
+        if (res.status === "done") {
+            commentsPage++;
+            var output = "";
+            $.each(res.data.content, function(index, c) {
+                output+= c.content + ", Autor: " + c.userName + ", Data: " + c.addDate + " <br />";
+            });
+
+            $('#comments').append(output);
+            $('#commentCount').text(res.data.totalCount);
+
+            if(res.data.page === res.data.totalPage)
+                disableMoreComments();
+        }
+        else {
+            disableMoreComments();
+            $('#commentCount').text("0");
+        }
+
+    }
+
+    function disableMoreComments() {
+        commentsDisabled = true;
+        $("#moreComments").css("display", "none");
+        $("#moreComments").addClass("disabled");
+    }
+
+    $("#moreComments").click(function () {
+        getComments();
+    });
+
 
 });
 </script>

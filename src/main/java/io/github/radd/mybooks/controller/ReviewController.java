@@ -162,7 +162,6 @@ public class ReviewController {
 
         model.addAttribute("title", review.getTitle() + " | Recenzja");
         model.addAttribute("review", review);
-        model.addAttribute("commentCount", review.getComments().size());
 
         reviewService.incrementViewCount(review);
 
