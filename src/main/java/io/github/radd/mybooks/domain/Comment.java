@@ -2,6 +2,7 @@ package io.github.radd.mybooks.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "comment")
@@ -67,5 +68,10 @@ public class Comment {
 
     public void setAddDate(LocalDateTime addDate) {
         this.addDate = addDate;
+    }
+
+    public String getDate() {
+        return addDate
+                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
     }
 }

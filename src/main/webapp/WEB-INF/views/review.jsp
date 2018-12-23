@@ -18,10 +18,11 @@
     </c:if>
     </br>
 
+    Komentarze (${commentCount}):
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentModal">
        Dodaj komentarz
     </button>
-
+<br />
     <div class="modal fade" id="addCommentModal" tabindex="-1" role="dialog" aria-labelledby="addCommentModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -46,6 +47,10 @@
             </div>
         </div>
     </div>
+
+    <c:forEach items="${review.comments}" var="comment" varStatus="status">
+       ${comment.content}, Autor: ${comment.user.getDisplayName()}, Data: ${comment.getDate()} <br />
+    </c:forEach><br />
 
 
 <script type="text/javascript">
