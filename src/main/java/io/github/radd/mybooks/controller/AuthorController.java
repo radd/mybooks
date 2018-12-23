@@ -48,19 +48,23 @@ public class AuthorController {
 
     @GetMapping("/authors")
     public String authors(@PageableDefault(size = 1, sort = "lastName", direction = Sort.Direction.ASC) Pageable pageable,
-                              @RequestParam(required = false) String sort,
-                              Model model) {
+                          @RequestParam(required = false) String sort,
+                          @RequestParam(required = false) String size,
+                          Model model) {
         //?page=0&sort=id,DESC
 
         Page<Author> authors = authorRepo.findAll(pageable);
         int page = pageable.getPageNumber() + 1;
         int totalPage = authors.getTotalPages();
+        if (page > totalPage)
+            return "404";
 
         model.addAttribute("title", "Autorzy | Strona " + page);
         model.addAttribute("authors", authors.getContent());
         model.addAttribute("page", page);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("sort", sort);
+        model.addAttribute("size", size);
 
         return "authors";
     }

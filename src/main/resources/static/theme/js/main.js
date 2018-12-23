@@ -47,6 +47,7 @@ $(function() {
 
     function paginationChange() {
 
+
         $(".page-prev-btn").text("Poprzednia");
         $(".page-next-btn").text("Następna");
 
@@ -55,6 +56,10 @@ $(function() {
         });
 
         $(".page-nav .page-mobile-hidden").each(function(){
+            $(this).css("display", "block");
+        });
+
+        $(".page-nav .page-not-small-mobile").each(function(){
             $(this).css("display", "block");
         });
 
@@ -76,11 +81,19 @@ $(function() {
             }
         }
 
-        if ($(window).width() < 500) {
-            $(".page-nav .page-mobile-hidden").each(function(){
+
+        if ($(window).width() <= 500) {
+           /* $(".page-nav .page-mobile-hidden").each(function(){
+                $(this).css("display", "none");
+            });*/
+            $(".page-prev-btn").text("Poprzednia");
+            $(".page-next-btn").text("Następna");
+
+            $(".page-nav .page-not-small-mobile").each(function(){
                 $(this).css("display", "none");
             });
         }
+
 
 
 

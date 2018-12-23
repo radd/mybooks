@@ -280,8 +280,20 @@ section.book_review  .review .review_author .avatar img {
     padding: 10px 0;
 }
 
+.page-only-small-mobile {
+    display: none;
+}
 
 
+
+@media only screen and (max-width: 500px) {
+
+    .page-only-small-mobile {
+        display: block;
+    }
+
+
+}
 
 
 

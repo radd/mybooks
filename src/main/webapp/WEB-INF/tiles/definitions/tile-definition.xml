@@ -11,6 +11,8 @@
 		<put-attribute name="sidebar" value="/WEB-INF/tiles/template/sidebar.jsp" />
 		<put-attribute name="navigation" value="/WEB-INF/tiles/template/navigation.jsp" />
 		<put-attribute name="content" value="" />
+<!--		<put-attribute name="pagination" value="" />
+		<put-attribute name="urlPage" value="" />-->
 		<put-attribute name="footer" value="/WEB-INF/tiles/template/footer.jsp" />
 	</definition>
 
@@ -43,6 +45,8 @@
 
 	<definition name="authors" extends="baseLayout">
 		<put-attribute name="content" value="/WEB-INF/views/authors.jsp" />
+		<put-attribute name="urlPage" value="/authors" cascade="true" />
+		<put-attribute name="pagination" value="/WEB-INF/tiles/template/pagination.jsp" cascade="true" />
 	</definition>
 
 	<definition name="author" extends="baseLayout">
@@ -83,7 +87,9 @@
 
     <definition name="reviews" extends="baseLayout">
         <put-attribute name="content" value="/WEB-INF/views/reviews.jsp" />
-    </definition>
+		<put-attribute name="urlPage" value="/reviews" cascade="true" />
+		<put-attribute name="pagination" value="/WEB-INF/tiles/template/pagination.jsp" cascade="true" />
+	</definition>
 
 	<definition name="review" extends="baseLayout">
 		<put-attribute name="content" value="/WEB-INF/views/review.jsp" />

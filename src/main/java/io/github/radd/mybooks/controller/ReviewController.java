@@ -171,18 +171,22 @@ public class ReviewController {
     @GetMapping("/reviews")
     public String reviewsPage(@PageableDefault(size = 1, sort = "title", direction = Sort.Direction.ASC) Pageable pageable,
                               @RequestParam(required = false) String sort,
+                              @RequestParam(required = false) String size,
                               Model model) {
         //?page=0&sort=id,DESC
 
         Page<Review> reviews = reviewRepo.findAll(pageable);
         int page = pageable.getPageNumber() + 1;
         int totalPage = reviews.getTotalPages();
+        if (page > totalPage)
+            return "404";
 
         model.addAttribute("title", "Recenzje | Strona " + page);
         model.addAttribute("reviews", reviews.getContent());
         model.addAttribute("page", page);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("sort", sort);
+        model.addAttribute("size", size);
 
         return "reviews";
     }
