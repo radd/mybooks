@@ -160,7 +160,7 @@ public class ReviewController {
         if(review == null)
             return "404";
 
-        model.addAttribute("title", review.getTitle() + "| Recenzja");
+        model.addAttribute("title", review.getTitle() + " | Recenzja");
         model.addAttribute("review", review);
 
         reviewService.incrementViewCount(review);
