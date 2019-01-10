@@ -95,5 +95,9 @@
 		<put-attribute name="content" value="/WEB-INF/views/review.jsp" />
 	</definition>
 
+	<definition name="user" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/user.jsp" />
+	</definition>
+
 
 </tiles-definitions>
