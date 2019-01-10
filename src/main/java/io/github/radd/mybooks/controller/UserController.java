@@ -145,6 +145,11 @@ public class UserController {
         String newPassword = req.getParameter("newPassword");
         String newPassword2 = req.getParameter("newPassword2");
 
+        if(oldPassword.isEmpty() || newPassword.isEmpty() || newPassword2.isEmpty()) {
+            model.addAttribute("errorMsg", "Wypełnij wszystkie pola");
+            return "changePassword";
+        }
+
         if(!passwordEncoder.matches(oldPassword, auth.getUserInfo().getUser().getPassword())) {
             model.addAttribute("errorMsg", "Hasło nie jest poprawne");
             return "changePassword";
