@@ -100,8 +100,10 @@ public class User {
 	public String getDisplayName() {
 		if (displayName != null && !displayName.equals(""))
 			return displayName;
-		else
+		else if(!firstName.isEmpty() ||  !lastName.isEmpty())
 			return firstName + " " + lastName;
+		else
+			return email;
 	}
 
 	public void setDisplayName(String displayName) {

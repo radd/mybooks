@@ -22,10 +22,15 @@
         </c:when>
         <c:when test="${auth.getUserInfo().user.id == user.id}">
             <a href="/mybooks/user/${user.id}/edit">Edytuj</a>
+
         </c:when>
     </c:choose>
-
     </br>
+    <c:if test="${auth.getUserInfo().user.id == user.id}">
+        <a href="/mybooks/user/change-password">Zmień hasło</a>
+    </c:if>
+    </br>
+
     </br>
     Napisane recenzje: </br>
     <c:forEach items="${reviews}" var="review" varStatus="tagStatus">

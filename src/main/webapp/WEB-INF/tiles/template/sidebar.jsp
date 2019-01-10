@@ -10,7 +10,7 @@
         <div class="card-body">
             <ul class="list-unstyled mb-0">
                 <li>
-                        ${auth.getUserInfo().getUser().getEmail()}
+					<a href="<c:url value="/user/${auth.getUserInfo().getUser().id}" />">${auth.getUserInfo().getUser().getDisplayName()}</a>
                 </li>
                 <li>
                     <a href="<c:url value="/logout" />">Wyloguj się</a>

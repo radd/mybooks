@@ -103,5 +103,9 @@
 		<put-attribute name="content" value="/WEB-INF/views/editUser.jsp" />
 	</definition>
 
+	<definition name="changePassword" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/changePassword.jsp" />
+	</definition>
+
 
 </tiles-definitions>

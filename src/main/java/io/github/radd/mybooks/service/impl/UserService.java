@@ -10,6 +10,7 @@ import io.github.radd.mybooks.utils.WebUtils;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -23,6 +24,9 @@ public class UserService {
 
     @Autowired
     AuthUser auth;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     public UserDTO getUserToEdit(User user) {
         UserDTO userDTO =  ObjectMapperUtils.map(user, UserDTO.class);
@@ -44,5 +48,13 @@ public class UserService {
         User editUser = userRepo.save(user);
 
         return editUser;
+    }
+
+    @Transactional
+    public User changePassword(String newPassword) {
+        User user = auth.getUserInfo().getUser();
+        user.setPassword(passwordEncoder.encode(newPassword));
+
+        return userRepo.save(user);
     }
 }

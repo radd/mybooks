@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,8 +45,11 @@ public class UserController {
     @Autowired
     AuthUser auth;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @GetMapping("/user/{ID}")
-    public String authors(@PathVariable Long ID, Model model) {
+    public String user(@PathVariable Long ID, Model model) {
 
         User user = userRepo.findById(ID).orElse(null);
         if (user == null)
@@ -66,7 +70,7 @@ public class UserController {
 
 
     @GetMapping("/user/{ID}/edit")
-    public String editBook(@PathVariable Long ID, Model model) {
+    public String editUser(@PathVariable Long ID, Model model) {
 
         if (!auth.isLoggedIn())
             return "404";
@@ -90,7 +94,7 @@ public class UserController {
     }
 
     @PostMapping("/user/{ID}/edit")
-    public String editBook(@PathVariable Long ID, @ModelAttribute("user") @Valid UserDTO userDTO,
+    public String editUser(@PathVariable Long ID, @ModelAttribute("user") @Valid UserDTO userDTO,
                            BindingResult result, HttpServletRequest req, Model model) {
         if (!auth.isLoggedIn())
             return "404";
@@ -118,6 +122,46 @@ public class UserController {
         }
 
         return "editUser";
+    }
+
+    @GetMapping("/user/change-password")
+    public String changePassword(Model model) {
+
+        if (!auth.isLoggedIn())
+            return "404";
+
+        model.addAttribute("title", "Zmień hasło");
+
+        return "changePassword";
+    }
+
+    @PostMapping("/user/change-password")
+    public String changePassword(HttpServletRequest req, Model model) {
+        if (!auth.isLoggedIn())
+            return "404";
+        model.addAttribute("edited", false);
+
+        String oldPassword = req.getParameter("oldPassword");
+        String newPassword = req.getParameter("newPassword");
+        String newPassword2 = req.getParameter("newPassword2");
+
+        if(!passwordEncoder.matches(oldPassword, auth.getUserInfo().getUser().getPassword())) {
+            model.addAttribute("errorMsg", "Hasło nie jest poprawne");
+            return "changePassword";
+        }
+
+        if(!newPassword.equals(newPassword2)) {
+            model.addAttribute("errorMsg", "Nowe hasła nie są identyczne");
+            return "changePassword";
+        }
+
+        User user = userService.changePassword(req.getParameter("newPassword"));
+        if (user != null) {
+            model.addAttribute("edited", true);
+            model.addAttribute("userPath", user.getId());
+        }
+
+        return "changePassword";
     }
 
 
