@@ -2,6 +2,7 @@ package io.github.radd.mybooks.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @Entity
@@ -169,5 +170,10 @@ public class User {
 
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getDate() {
+		return joinDate
+				.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
 	}
 }

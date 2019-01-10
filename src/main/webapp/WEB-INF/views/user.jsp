@@ -4,12 +4,26 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 
 <div class="col-md-12">
-    <h3 class="my-4">User: ${user.getDisplayName()}</h3>
+    <h3 class="my-4">Użytkownik: ${user.getDisplayName()}</h3>
 
             Imię: ${user.firstName} </br>
             Nazwisko: ${user.lastName} </br>
+            Wyświetlana nazwa: ${user.displayName} </br>
             Email: ${user.email} </br>
 
+    <c:if test="${auth.getUserInfo().isAdminOrModerator() or auth.getUserInfo().user.id == user.id}">
+        Data rejestracji: ${user.getDate()} </br>
+    </c:if>
+            Opis:  </br> ${user.description} </br>
+
+    <c:choose>
+        <c:when test="${auth.getUserInfo().isAdminOrModerator()}">
+            <a href="/mybooks/user/${user.id}/edit">Edytuj</a>
+        </c:when>
+        <c:when test="${auth.getUserInfo().user.id == user.id}">
+            <a href="/mybooks/user/${user.id}/edit">Edytuj</a>
+        </c:when>
+    </c:choose>
 
     </br>
     </br>

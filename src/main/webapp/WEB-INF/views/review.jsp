@@ -9,7 +9,7 @@
             Tytuł: ${review.title} </br>
             Data dodania: ${review.getDate()} </br>
             Liczba wyświetleń: ${review.viewCount} </br>
-            Autor: ${review.user.getDisplayName()} </br> </br>
+            Autor: <a href="/mybooks/user/${review.user.id}">${review.user.getDisplayName()}</a> </br></br>
             Treść: ${review.content} </br></br>
     Książka:  <a href="/mybooks/book/${review.book.slug}">${review.book.title}</a> </br>
     <c:if test="${auth.getUserInfo().isAdminOrModerator()}">

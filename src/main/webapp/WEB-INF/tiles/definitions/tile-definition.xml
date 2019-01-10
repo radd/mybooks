@@ -99,5 +99,9 @@
 		<put-attribute name="content" value="/WEB-INF/views/user.jsp" />
 	</definition>
 
+	<definition name="editUser" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/editUser.jsp" />
+	</definition>
+
 
 </tiles-definitions>

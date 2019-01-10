@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @Service
@@ -39,6 +40,7 @@ public class UserSingUpServiceImpl {
         user.setLastName(accountDto.getLastName());
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         user.setEmail(accountDto.getEmail());
+        user.setJoinDate(LocalDateTime.now());
 
         Role userRole = roleRepo.findByName("ROLE_USER");
         user.setRoles(Arrays.asList(userRole));
