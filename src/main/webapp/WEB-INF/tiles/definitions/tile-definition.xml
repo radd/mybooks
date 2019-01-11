@@ -123,5 +123,11 @@
 		<put-attribute name="pagination" value="/WEB-INF/tiles/template/pagination.jsp" cascade="true" />
 	</definition>
 
+	<definition name="searchReviews" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/searchReviews.jsp" />
+		<put-attribute name="urlPage" value="/reviews/search" cascade="true" />
+		<put-attribute name="pagination" value="/WEB-INF/tiles/template/pagination.jsp" cascade="true" />
+	</definition>
+
 
 </tiles-definitions>

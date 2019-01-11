@@ -6,9 +6,9 @@
 
 
 <div class="col-md-12">
-    <h3 class="my-4">Szukaj książki</h3>
+    <h3 class="my-4">Szukaj recenzji</h3>
 
-    <form method="get" action="<c:url value="/books/search" /> " class="form-inline" >
+    <form method="get" action="<c:url value="/reviews/search" /> " class="form-inline" >
         <label class="sr-only" for="searchTerm">Search</label>
         <input type="text" style="flex: 1;" class="form-control mb-2 mr-sm-2"
                name="searchTerm" id="searchTerm" placeholder="Szukaj..."
@@ -21,15 +21,20 @@
     <c:if test="${search}">
         <h5 class="my-4">Znaleziono: ${resultCount} wyników</h5>
 
-        <section class="books">
-            <div class="book_main_list">
+        <section class="book_review">
+            <div class="review_wrap">
 
-                <c:forEach items="${books}" var="book" varStatus="tagStatus">
-                    <div class="book">
-                        <a href="/mybooks/book/${book.slug}">
-                            <img class="cover" alt="okładka" src=" ${book.cover}" />
-                            <div class="info">
-                                <h5> ${book.title}</h5>
+                <c:forEach items="${reviews}" var="review" varStatus="tagStatus">
+                    <div class="review">
+                        <a href="/mybooks/review/${review.slug}" class="review_info">
+                            <h4>${review.title}</h4>
+                            <div class="description">
+                                <p>${review.getShortContent()}</p>
+                            </div>
+                        </a>
+                        <a href="/mybooks/book/${review.book.slug}" class="review_author">
+                            <div class="avatar">
+                                <img alt="avatar" src="${review.getBook().getCover()}" />
                             </div>
                         </a>
                     </div>

@@ -186,7 +186,33 @@ public class ReviewController {
         return "reviews";
     }
 
+    @GetMapping("/reviews/search")
+    public String searchReviews(@PageableDefault(size = 1, sort = "title", direction = Sort.Direction.ASC) Pageable pageable,
+                              @RequestParam(required = false) String searchTerm,
+                              Model model) {
 
+        if(searchTerm != null && !searchTerm.isEmpty())
+        {
+            Page<Review> reviews = reviewRepo.findAllByTitleIgnoreCaseContaining(searchTerm, pageable);
+            int page = pageable.getPageNumber() + 1;
+            int totalPage = reviews.getTotalPages();
+
+            model.addAttribute("title", "Szukaj recenzji: \"" + searchTerm + "\" | Strona " + page);
+            model.addAttribute("reviews", reviews.getContent());
+            model.addAttribute("page", page);
+            model.addAttribute("totalPage", totalPage);
+            model.addAttribute("search", true);
+            model.addAttribute("searchTerm", searchTerm);
+            model.addAttribute("resultCount", reviews.getTotalElements());
+        }
+        else {
+            model.addAttribute("title", "Szukaj recenzji");
+            model.addAttribute("search", false);
+
+        }
+
+        return "searchReviews";
+    }
 
 
 }
