@@ -14,6 +14,10 @@ import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
 import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -194,28 +198,32 @@ public class BookController {
         return "404";
     }
 
-/*    @GetMapping("/reviews/search")
-    public String reviewsPage(@PageableDefault(size = 1, sort = "title", direction = Sort.Direction.ASC) Pageable pageable,
-                              @RequestParam(required = false) String sort,
-                              @RequestParam(required = false) String size,
+    @GetMapping("/books/search")
+    public String searchBooks(@PageableDefault(size = 1, sort = "title", direction = Sort.Direction.ASC) Pageable pageable,
+                              @RequestParam(required = false) String searchTerm,
                               Model model) {
-        //?page=0&sort=id,DESC
 
-        Page<Review> reviews = reviewRepo.findAll(pageable);
-        int page = pageable.getPageNumber() + 1;
-        int totalPage = reviews.getTotalPages();
-        if (page > totalPage)
-            return "404";
+        if(searchTerm != null && !searchTerm.isEmpty())
+        {
+            Page<Book> books = bookRepo.findAllByTitleIgnoreCaseContaining(searchTerm, pageable);
+            int page = pageable.getPageNumber() + 1;
+            int totalPage = books.getTotalPages();
 
-        model.addAttribute("title", "Recenzje | Strona " + page);
-        model.addAttribute("reviews", reviews.getContent());
-        model.addAttribute("page", page);
-        model.addAttribute("totalPage", totalPage);
-        model.addAttribute("sort", sort);
-        model.addAttribute("size", size);
+            model.addAttribute("title", "Szukaj książki: \"" + searchTerm + "\" | Strona " + page);
+            model.addAttribute("books", books.getContent());
+            model.addAttribute("page", page);
+            model.addAttribute("totalPage", totalPage);
+            model.addAttribute("search", true);
+            model.addAttribute("searchTerm", searchTerm);
+            model.addAttribute("resultCount", books.getTotalElements());
+        }
+        else {
+            model.addAttribute("title", "Szukaj książki");
+            model.addAttribute("search", false);
 
-        return "reviews";
-    }*/
+        }
 
+        return "searchBooks";
+    }
 
 }

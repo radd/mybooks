@@ -117,5 +117,11 @@
 		<put-attribute name="content" value="/WEB-INF/views/adminPanel.jsp" />
 	</definition>
 
+	<definition name="searchBooks" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/searchBooks.jsp" />
+		<put-attribute name="urlPage" value="/books/search" cascade="true" />
+		<put-attribute name="pagination" value="/WEB-INF/tiles/template/pagination.jsp" cascade="true" />
+	</definition>
+
 
 </tiles-definitions>

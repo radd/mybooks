@@ -20,6 +20,9 @@
                 </a>
             </div>
             </c:forEach>
+
+            <tiles:insertAttribute name="pagination" />
+
         </div>
     </section>
 
