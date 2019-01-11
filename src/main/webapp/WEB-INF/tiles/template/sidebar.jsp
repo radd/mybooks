@@ -28,6 +28,9 @@
 		<div class="card-body">
 			<ul class="sidebar-list list-unstyled mb-0">
 				<li>
+					<a href="<c:url value="/admin/users" />">Lista użytkowników</a>
+				</li>
+				<li>
 					<a href="<c:url value="/cat/add" />">Dodaj kategorię</a>
 				</li>
 

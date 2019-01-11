@@ -107,5 +107,11 @@
 		<put-attribute name="content" value="/WEB-INF/views/changePassword.jsp" />
 	</definition>
 
+	<definition name="users" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/users.jsp" />
+		<put-attribute name="urlPage" value="/admin/users" cascade="true" />
+		<put-attribute name="pagination" value="/WEB-INF/tiles/template/pagination.jsp" cascade="true" />
+	</definition>
+
 
 </tiles-definitions>
