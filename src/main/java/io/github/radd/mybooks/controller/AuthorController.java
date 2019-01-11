@@ -4,7 +4,6 @@ import io.github.radd.mybooks.domain.Author;
 import io.github.radd.mybooks.domain.dto.AuthorDTO;
 import io.github.radd.mybooks.domain.repository.AuthorRepository;
 import io.github.radd.mybooks.service.impl.AuthorService;
-import io.github.radd.mybooks.utils.WebUtils;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Collection;
 
 @Controller
 public class AuthorController {
@@ -172,6 +170,34 @@ public class AuthorController {
         }
 
         return "addAuthor";
+    }
+
+    @GetMapping("/authors/search")
+    public String searchAuthors(@PageableDefault(size = 1, sort = "lastName", direction = Sort.Direction.ASC) Pageable pageable,
+                              @RequestParam(required = false) String searchTerm,
+                              Model model) {
+
+        if(searchTerm != null && !searchTerm.isEmpty())
+        {
+            Page<Author> authors = authorRepo.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(searchTerm, searchTerm, pageable);
+            int page = pageable.getPageNumber() + 1;
+            int totalPage = authors.getTotalPages();
+
+            model.addAttribute("title", "Szukaj autora: \"" + searchTerm + "\" | Strona " + page);
+            model.addAttribute("authors", authors.getContent());
+            model.addAttribute("page", page);
+            model.addAttribute("totalPage", totalPage);
+            model.addAttribute("search", true);
+            model.addAttribute("searchTerm", searchTerm);
+            model.addAttribute("resultCount", authors.getTotalElements());
+        }
+        else {
+            model.addAttribute("title", "Szukaj autora");
+            model.addAttribute("search", false);
+
+        }
+
+        return "searchAuthors";
     }
 
 }

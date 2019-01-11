@@ -14,6 +14,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findAllByUser(User user, Pageable pageable);
 
-    Page<Review> findAllByTitleIgnoreCaseContaining(String title, Pageable pageable);
+    Page<Review> findAllByTitleIgnoreCaseContainingOrContentIgnoreCaseContaining(String title, String content, Pageable pageable);
 
 }

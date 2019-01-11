@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -187,13 +188,17 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews/search")
-    public String searchReviews(@PageableDefault(size = 1, sort = "title", direction = Sort.Direction.ASC) Pageable pageable,
+    public String searchReviews(@PageableDefault(size = 1)
+                                    @SortDefault.SortDefaults({
+                                            @SortDefault(sort = "createDate", direction = Sort.Direction.DESC)
+                                    })
+                                            Pageable pageable,
                               @RequestParam(required = false) String searchTerm,
                               Model model) {
 
         if(searchTerm != null && !searchTerm.isEmpty())
         {
-            Page<Review> reviews = reviewRepo.findAllByTitleIgnoreCaseContaining(searchTerm, pageable);
+            Page<Review> reviews = reviewRepo.findAllByTitleIgnoreCaseContainingOrContentIgnoreCaseContaining(searchTerm, searchTerm, pageable);
             int page = pageable.getPageNumber() + 1;
             int totalPage = reviews.getTotalPages();
 
