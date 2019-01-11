@@ -9,12 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 //@Component
 public class InitialDataLoader implements
@@ -39,11 +36,11 @@ public class InitialDataLoader implements
         if (alreadySetup)
             return;
 
-        createRoleIfNotFound(UserRole.ADMIN.getName());
-        createRoleIfNotFound(UserRole.USER.getName());
-        createRoleIfNotFound(UserRole.MODERATOR.getName());
+        createRoleIfNotFound(UserRole.ADMIN);
+        createRoleIfNotFound(UserRole.USER);
+        createRoleIfNotFound(UserRole.MODERATOR);
 
-        Role adminRole = roleRepository.findByName(UserRole.ADMIN.getName());
+        Role adminRole = roleRepository.findByName(UserRole.ADMIN);
         User user = new User();
         user.setDisplayName("Test");
         user.setLastName("Test");

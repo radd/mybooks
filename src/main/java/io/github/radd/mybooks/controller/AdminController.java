@@ -3,6 +3,7 @@ package io.github.radd.mybooks.controller;
 import io.github.radd.mybooks.domain.User;
 import io.github.radd.mybooks.domain.repository.UserRepository;
 import io.github.radd.mybooks.utils.auth.AuthUser;
+import io.github.radd.mybooks.utils.user.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@Secured({"ROLE_ADMIN", "ROLE_MODERATOR"})
+@Secured({UserRole.ADMIN, UserRole.MODERATOR})
 public class AdminController {
 
     @Autowired

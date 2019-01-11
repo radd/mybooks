@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.Assert;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -43,11 +42,11 @@ public class UserInfo extends org.springframework.security.core.userdetails.User
     }
 
     public boolean isAdmin() {
-        return user.getRoles().stream().anyMatch(r -> r.getName().equals(UserRole.ADMIN.getName()));
+        return user.getRoles().stream().anyMatch(r -> r.getName().equals(UserRole.ADMIN));
     }
 
     public boolean isModerator() {
-        return user.getRoles().stream().anyMatch(r -> r.getName().equals(UserRole.MODERATOR.getName()));
+        return user.getRoles().stream().anyMatch(r -> r.getName().equals(UserRole.MODERATOR));
     }
 
     public boolean isAdminOrModerator() {
