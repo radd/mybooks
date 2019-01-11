@@ -26,6 +26,7 @@
 	<div class="card my-4">
 		<h5 class="card-header">Admin panel</h5>
 		<div class="card-body">
+			<a href="<c:url value="/admin" />">Panel Administracyjny</a>
 			<ul class="sidebar-list list-unstyled mb-0">
 				<li>
 					<a href="<c:url value="/admin/users" />">Lista użytkowników</a>

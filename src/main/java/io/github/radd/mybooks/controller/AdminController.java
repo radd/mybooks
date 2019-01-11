@@ -13,6 +13,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -26,8 +27,16 @@ public class AdminController {
     @Autowired
     AuthUser auth;
 
+    @RequestMapping("/admin")
+    public String adminPanel(Model model) {
+
+        model.addAttribute("title", "Panel Administracyjny");
+
+        return "adminPanel";
+    }
+
     @GetMapping("admin/users")
-    public String reviewsPage(@PageableDefault(size = 1, sort = "email", direction = Sort.Direction.ASC) Pageable pageable,
+    public String users(@PageableDefault(size = 1, sort = "email", direction = Sort.Direction.ASC) Pageable pageable,
                               @RequestParam(required = false) String sort,
                               @RequestParam(required = false) String size,
                               Model model) {
@@ -47,6 +56,8 @@ public class AdminController {
 
         return "users";
     }
+
+
 
 
 

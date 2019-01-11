@@ -113,5 +113,9 @@
 		<put-attribute name="pagination" value="/WEB-INF/tiles/template/pagination.jsp" cascade="true" />
 	</definition>
 
+	<definition name="adminPanel" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/adminPanel.jsp" />
+	</definition>
+
 
 </tiles-definitions>

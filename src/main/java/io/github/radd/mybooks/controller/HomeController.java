@@ -4,9 +4,7 @@ import io.github.radd.mybooks.exception.UserNotFoundException;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -118,14 +116,6 @@ public class HomeController {
         model.addAttribute("title", "Foo");
         model.addAttribute("greeting", "Foo greeting");
         return "foo";
-    }
-
-    @RequestMapping("/admin")
-    public String adminPage(Model model) {
-
-        model.addAttribute("title", "Admin page");
-        model.addAttribute("greeting", "Witaj admin!");
-        return "admin";
     }
 
 }
