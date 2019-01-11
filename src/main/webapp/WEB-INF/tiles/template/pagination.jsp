@@ -10,12 +10,13 @@
         <%--Prev--%>
         <c:url value="${urlPage}" var="prev">
             <c:param name="page" value="${page-1}"/>
-            <c:if test="${not empty sort}">
-                <c:param name="sort" value="${sort}"/>
-            </c:if>
-            <c:if test="${not empty size}">
-                <c:param name="size" value="${size}"/>
-            </c:if>
+
+            <c:forEach var="p" items="${param}">
+                <c:if test="${not p.key.equals('page')}">
+                    <c:param name="${p.key}" value="${p.value}"/>
+                </c:if>
+            </c:forEach>
+
         </c:url>
         <c:choose>
             <c:when test="${page > 1}">
@@ -35,12 +36,13 @@
             <c:when test="${3 < page - offset}">
                 <c:url value="${urlPage}" var="first">
                     <c:param name="page" value="1"/>
-                    <c:if test="${not empty sort}">
-                        <c:param name="sort" value="${sort}"/>
-                    </c:if>
-                    <c:if test="${not empty size}">
-                        <c:param name="size" value="${size}"/>
-                    </c:if>
+
+                    <c:forEach var="p" items="${param}">
+                        <c:if test="${not p.key.equals('page')}">
+                            <c:param name="${p.key}" value="${p.value}"/>
+                        </c:if>
+                    </c:forEach>
+
                 </c:url>
                 <li class="page-item page-not-small-mobile"><a class="page-link" href="<c:out value="${first}" />">1</a></li>
                 <li class="page-item page-not-small-mobile"><span class="page-link page-separator">. .</span></li>
@@ -48,12 +50,13 @@
                 <c:forEach begin="${page - offset}" end="${page - 1}" step="1" varStatus="i">
                     <c:url value="${urlPage}" var="url">
                         <c:param name="page" value="${i.index}"/>
-                        <c:if test="${not empty sort}">
-                            <c:param name="sort" value="${sort}"/>
-                        </c:if>
-                        <c:if test="${not empty size}">
-                            <c:param name="size" value="${size}"/>
-                        </c:if>
+
+                        <c:forEach var="p" items="${param}">
+                            <c:if test="${not p.key.equals('page')}">
+                                <c:param name="${p.key}" value="${p.value}"/>
+                            </c:if>
+                        </c:forEach>
+
                     </c:url>
                     <li class="page-item page-mobile-hidden page-not-small-mobile"><a class="page-link" href="<c:out value="${url}" />">${i.index}</a></li>
 
@@ -63,12 +66,13 @@
                 <c:forEach begin="1" end="${page - 1 >= 1 ? page -1 : 0}" step="1" varStatus="i">
                     <c:url value="${urlPage}" var="url">
                         <c:param name="page" value="${i.index}"/>
-                        <c:if test="${not empty sort}">
-                            <c:param name="sort" value="${sort}"/>
-                        </c:if>
-                        <c:if test="${not empty size}">
-                            <c:param name="size" value="${size}"/>
-                        </c:if>
+
+                        <c:forEach var="p" items="${param}">
+                            <c:if test="${not p.key.equals('page')}">
+                                <c:param name="${p.key}" value="${p.value}"/>
+                            </c:if>
+                        </c:forEach>
+
                     </c:url>
                     <li class="page-item page-not-small-mobile"><a class="page-link" href="<c:out value="${url}" />">${i.index}</a></li>
 
@@ -83,12 +87,13 @@
                 <c:forEach begin="${page + 1}" end="${page + offset}" step="1" varStatus="i">
                     <c:url value="${urlPage}" var="url">
                         <c:param name="page" value="${i.index}"/>
-                        <c:if test="${not empty sort}">
-                            <c:param name="sort" value="${sort}"/>
-                        </c:if>
-                        <c:if test="${not empty size}">
-                            <c:param name="size" value="${size}"/>
-                        </c:if>
+
+                        <c:forEach var="p" items="${param}">
+                            <c:if test="${not p.key.equals('page')}">
+                                <c:param name="${p.key}" value="${p.value}"/>
+                            </c:if>
+                        </c:forEach>
+
                     </c:url>
                     <li class="page-item page-mobile-hidden page-not-small-mobile"><a class="page-link" href="<c:out value="${url}" />">${i.index}</a></li>
 
@@ -96,12 +101,13 @@
                 <li class="page-item page-not-small-mobile"><span class="page-link page-separator">. .</span></li>
                 <c:url value="${urlPage}" var="last">
                     <c:param name="page" value="${totalPage}"/>
-                    <c:if test="${not empty sort}">
-                        <c:param name="sort" value="${sort}"/>
-                    </c:if>
-                    <c:if test="${not empty size}">
-                        <c:param name="size" value="${size}"/>
-                    </c:if>
+
+                    <c:forEach var="p" items="${param}">
+                        <c:if test="${not p.key.equals('page')}">
+                            <c:param name="${p.key}" value="${p.value}"/>
+                        </c:if>
+                    </c:forEach>
+
                 </c:url>
                 <li class="page-item page-not-small-mobile"><a class="page-link" href="<c:out value="${last}" />">${totalPage}</a></li>
 
@@ -110,12 +116,13 @@
                 <c:forEach begin="${page + 1}" end="${totalPage}" step="1" varStatus="i">
                     <c:url value="${urlPage}" var="url">
                         <c:param name="page" value="${i.index}"/>
-                        <c:if test="${not empty sort}">
-                            <c:param name="sort" value="${sort}"/>
-                        </c:if>
-                        <c:if test="${not empty size}">
-                            <c:param name="size" value="${size}"/>
-                        </c:if>
+
+                        <c:forEach var="p" items="${param}">
+                            <c:if test="${not p.key.equals('page')}">
+                                <c:param name="${p.key}" value="${p.value}"/>
+                            </c:if>
+                        </c:forEach>
+
                     </c:url>
                     <li class="page-item page-not-small-mobile"><a class="page-link" href="<c:out value="${url}" />">${i.index}</a></li>
 
@@ -126,12 +133,13 @@
         <%--Next--%>
         <c:url value="${urlPage}" var="next">
             <c:param name="page" value="${page+1}"/>
-            <c:if test="${not empty sort}">
-                <c:param name="sort" value="${sort}"/>
-            </c:if>
-            <c:if test="${not empty size}">
-                <c:param name="size" value="${size}"/>
-            </c:if>
+
+            <c:forEach var="p" items="${param}">
+                <c:if test="${not p.key.equals('page')}">
+                    <c:param name="${p.key}" value="${p.value}"/>
+                </c:if>
+            </c:forEach>
+
         </c:url>
         <c:choose>
             <c:when test="${page + 1 <= totalPage}">

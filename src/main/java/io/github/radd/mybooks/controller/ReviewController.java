@@ -6,13 +6,11 @@ import io.github.radd.mybooks.domain.dto.ReviewDTO;
 import io.github.radd.mybooks.domain.repository.BookRepository;
 import io.github.radd.mybooks.domain.repository.ReviewRepository;
 import io.github.radd.mybooks.service.impl.ReviewService;
-import io.github.radd.mybooks.utils.WebUtils;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -20,11 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Collection;
 
 @Controller
 public class ReviewController {
@@ -169,12 +165,11 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews")
-    public String reviewsPage(@PageableDefault(size = 1, sort = "title", direction = Sort.Direction.ASC) Pageable pageable,
+    public String reviewsPage(@PageableDefault(size = 1, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
                               @RequestParam(required = false) String sort,
                               @RequestParam(required = false) String size,
                               Model model) {
         //?page=0&sort=id,DESC
-
         Page<Review> reviews = reviewRepo.findAll(pageable);
         int page = pageable.getPageNumber() + 1;
         int totalPage = reviews.getTotalPages();

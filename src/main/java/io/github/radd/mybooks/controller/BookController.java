@@ -9,7 +9,6 @@ import io.github.radd.mybooks.domain.repository.RatingRepository;
 import io.github.radd.mybooks.domain.repository.VoteRepository;
 import io.github.radd.mybooks.service.impl.BookService;
 import io.github.radd.mybooks.service.impl.CategoryService;
-import io.github.radd.mybooks.utils.WebUtils;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
 import io.github.radd.mybooks.utils.user.UserInfo;
@@ -91,7 +90,6 @@ public class BookController {
     @PostMapping("/books/add")
     public String addBook(@ModelAttribute("book") @Valid BookDTO bookDto,
                          BindingResult result, HttpServletRequest req, Model model) {
-
         Book newBook = null;
         model.addAttribute("added", false);
 
@@ -195,5 +193,29 @@ public class BookController {
 
         return "404";
     }
+
+/*    @GetMapping("/reviews/search")
+    public String reviewsPage(@PageableDefault(size = 1, sort = "title", direction = Sort.Direction.ASC) Pageable pageable,
+                              @RequestParam(required = false) String sort,
+                              @RequestParam(required = false) String size,
+                              Model model) {
+        //?page=0&sort=id,DESC
+
+        Page<Review> reviews = reviewRepo.findAll(pageable);
+        int page = pageable.getPageNumber() + 1;
+        int totalPage = reviews.getTotalPages();
+        if (page > totalPage)
+            return "404";
+
+        model.addAttribute("title", "Recenzje | Strona " + page);
+        model.addAttribute("reviews", reviews.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("sort", sort);
+        model.addAttribute("size", size);
+
+        return "reviews";
+    }*/
+
 
 }

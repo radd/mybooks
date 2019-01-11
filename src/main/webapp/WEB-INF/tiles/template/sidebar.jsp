@@ -75,6 +75,12 @@
 					</li>
 				</ul>
 			</li>
+			<li>
+				<a href="<c:url value="/books/search" />">Szukaj książki</a>
+			</li>
+			<li>
+				<a href="<c:url value="/reviews/search" />">Szukaj recenzji</a>
+			</li>
 		</ul>
 
 	</div>
