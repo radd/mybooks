@@ -32,18 +32,69 @@
     </br>
 
     </br>
-    Napisane recenzje: </br>
-    <c:forEach items="${reviews}" var="review" varStatus="tagStatus">
-        <a href="/mybooks/review/${review.slug}">${review.title}</a>
-        </br>
-    </c:forEach>
+    Napisane recenzje: </br></br>
+    <section class="book_review">
+        <div class="review_wrap">
 
+            <c:forEach items="${reviews}" var="review" varStatus="tagStatus">
+                <div class="review">
+                    <div class="review-top">
+                        <a href="/mybooks/review/${review.slug}" class="review_info">
+                            <h4>${review.title}</h4>
+                            <div class="description">
+                                <p>${review.getShortContent()}</p>
+                            </div>
+                        </a>
+                        <a href="/mybooks/book/${review.book.slug}" class="review_author">
+                            <div class="avatar">
+                                <img alt="avatar" src="${review.getBook().getCover()}" />
+                            </div>
+                        </a>
+                    </div>
+                    <div class="review-bottom">
+                        <div class="review-author">Autor: <a href="/mybooks/user/${review.user.id}">${review.user.getDisplayName()}</a></div>
+                        <div class="review-book-info">Książka: "<a href="/mybooks/book/${review.book.slug}">${review.book.title}</a>" Autor:
+
+                            <c:forEach items="${review.book.authors}" var="author" varStatus="status">
+                                <c:if test="${status.index == 0}">
+                                    <a href="/mybooks/author/${author.slug}">${author.getDisplayName()}</a>
+                                </c:if>
+                                <c:if test="${status.index > 0}">
+                                    , <a href="/mybooks/author/${author.slug}"> ${author.getDisplayName()}</a>
+                                </c:if>
+
+
+                            </c:forEach>
+
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+
+
+
+        </div>
+    </section>
     </br>
-    </br>
-    Ostatnio ocenione książki: </br>
-    <c:forEach items="${ratings}" var="rating" varStatus="tagStatus">
-        <a href="/mybooks/book/${rating.book.slug}">${rating.book.title} || ${rating.stars}</a>
-        </br>
-    </c:forEach>
+    Ostatnio ocenione książki: </br></br>
+
+    <section class="books">
+        <div class="book_main_list">
+            <c:forEach items="${ratings}" var="rating" varStatus="tagStatus">
+                <c:set var="book" value="${rating.book}"></c:set>
+                <div class="book">
+                    <a href="/mybooks/book/${book.slug}">
+                        <img class="cover" alt="okładka" src=" ${book.cover}" />
+                        <div class="info">
+                            <h5> ${book.title}</h5>
+                            <div class="author"><c:forEach items="${book.authors}" var="author" varStatus="status"><c:if test="${status.index == 0}">${author.getDisplayName()}</c:if><c:if test="${status.index > 0}">, ${author.getDisplayName()}</c:if></c:forEach>
+                            </div>
+                                <div class="stars">${rating.stars}</div>
+                        </div>
+                    </a>
+                </div>
+            </c:forEach>
+        </div>
+    </section>
 
 </div>

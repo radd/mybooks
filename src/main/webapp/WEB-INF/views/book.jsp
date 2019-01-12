@@ -39,7 +39,7 @@
     <div class="vote-box">
         <div class="vote-type">
             <div id="voteCountRead" class="vote-count"><c:out value="${not empty vote_READ ? vote_READ : 0}"/></div>
-            <button type="button" id="read" class="btn btn-outline-success">Przeczytane</button>
+            <button type="button" id="read" class="btn btn-outline-success">Przeczytana</button>
         </div>
         <div class="vote-type">
             <div id="voteCountReading" class="vote-count"><c:out value="${not empty vote_READING ? vote_READING : 0}"/></div>

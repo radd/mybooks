@@ -30,6 +30,9 @@
                             <img class="cover" alt="okładka" src=" ${book.cover}" />
                             <div class="info">
                                 <h5> ${book.title}</h5>
+                                <div class="author"><c:forEach items="${book.authors}" var="author" varStatus="status"><c:if test="${status.index == 0}">${author.getDisplayName()}</c:if><c:if test="${status.index > 0}">, ${author.getDisplayName()}</c:if></c:forEach>
+                                </div>
+                                    <%-- <div class="stars">${book.stars}</div>--%>
                             </div>
                         </a>
                     </div>

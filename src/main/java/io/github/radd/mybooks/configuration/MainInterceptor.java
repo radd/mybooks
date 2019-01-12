@@ -1,10 +1,12 @@
 package io.github.radd.mybooks.configuration;
 
 import io.github.radd.mybooks.domain.repository.BookTagRepository;
-import io.github.radd.mybooks.domain.repository.UserRepository;
 import io.github.radd.mybooks.service.impl.CategoryService;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,7 +47,9 @@ public class MainInterceptor implements HandlerInterceptor {
         if (modelAndView != null) {
             modelAndView.getModelMap().addAttribute("auth", auth);
             modelAndView.getModelMap().addAttribute("categoryList", categoryService.getAllCatsList());
-            modelAndView.getModelMap().addAttribute("tagList", bookTagRepo.findAll());
+
+            Pageable tagsPage = new PageRequest(0,100, Sort.Direction.ASC, "name");
+            modelAndView.getModelMap().addAttribute("tagList", bookTagRepo.findAll(tagsPage).getContent());
 
         }
 

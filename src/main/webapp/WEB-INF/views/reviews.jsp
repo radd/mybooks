@@ -13,17 +13,36 @@
 
             <c:forEach items="${reviews}" var="review" varStatus="tagStatus">
                     <div class="review">
-                        <a href="/mybooks/review/${review.slug}" class="review_info">
-                            <h4>${review.title}</h4>
-                            <div class="description">
-                                <p>${review.getShortContent()}</p>
+                        <div class="review-top">
+                            <a href="/mybooks/review/${review.slug}" class="review_info">
+                                <h4>${review.title}</h4>
+                                <div class="description">
+                                    <p>${review.getShortContent()}</p>
+                                </div>
+                            </a>
+                            <a href="/mybooks/book/${review.book.slug}" class="review_author">
+                                <div class="avatar">
+                                    <img alt="avatar" src="${review.getBook().getCover()}" />
+                                </div>
+                            </a>
+                        </div>
+                        <div class="review-bottom">
+                            <div class="review-author">Autor: <a href="/mybooks/user/${review.user.id}">${review.user.getDisplayName()}</a></div>
+                            <div class="review-book-info">Książka: "<a href="/mybooks/book/${review.book.slug}">${review.book.title}</a>" Autor:
+
+                                <c:forEach items="${review.book.authors}" var="author" varStatus="status">
+                                    <c:if test="${status.index == 0}">
+                                        <a href="/mybooks/author/${author.slug}">${author.getDisplayName()}</a>
+                                    </c:if>
+                                   <c:if test="${status.index > 0}">
+                                       , <a href="/mybooks/author/${author.slug}"> ${author.getDisplayName()}</a>
+                                   </c:if>
+
+
+                                </c:forEach>
+
                             </div>
-                        </a>
-                        <a href="/mybooks/book/${review.book.slug}" class="review_author">
-                            <div class="avatar">
-                                <img alt="avatar" src="${review.getBook().getCover()}" />
-                            </div>
-                        </a>
+                        </div>
                     </div>
             </c:forEach>
 

@@ -1,9 +1,17 @@
 package io.github.radd.mybooks.controller;
 
+import io.github.radd.mybooks.domain.Book;
+import io.github.radd.mybooks.domain.Review;
+import io.github.radd.mybooks.domain.repository.BookRepository;
+import io.github.radd.mybooks.domain.repository.ReviewRepository;
 import io.github.radd.mybooks.exception.UserNotFoundException;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import io.github.radd.mybooks.utils.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +27,27 @@ import java.util.Collection;
 @Controller
 public class HomeController {
 
+    @Autowired
+    BookRepository bookRepo;
+
+    @Autowired
+    ReviewRepository reviewRepo;
+
     @RequestMapping("/")
     public String homePage(Model model) {
 
-        model.addAttribute("title", "Strona glowna");
-        model.addAttribute("greeting", "MyBooks");
+        Pageable reviewsPage = new PageRequest(0,3, Sort.Direction.DESC, "createDate");
+        Page<Review> reviews = reviewRepo.findAll(reviewsPage);
+
+        Pageable ratingsPage = new PageRequest(0,8, Sort.Direction.DESC, "stars");
+        Page<Book> books = bookRepo.findAll(ratingsPage);
+
+        model.addAttribute("reviews", reviews.getContent());
+        model.addAttribute("books", books.getContent());
+
+
+        model.addAttribute("title", "Strona główna");
+
         return "home";
     }
 

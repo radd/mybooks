@@ -36,7 +36,7 @@ public class AdminController {
     }
 
     @GetMapping("admin/users")
-    public String users(@PageableDefault(size = 1, sort = "email", direction = Sort.Direction.ASC) Pageable pageable,
+    public String users(@PageableDefault(size = 20, sort = "email", direction = Sort.Direction.ASC) Pageable pageable,
                               @RequestParam(required = false) String sort,
                               @RequestParam(required = false) String size,
                               Model model) {

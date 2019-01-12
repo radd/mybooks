@@ -166,7 +166,7 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews")
-    public String reviewsPage(@PageableDefault(size = 1, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
+    public String reviewsPage(@PageableDefault(size = 10, sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable,
                               @RequestParam(required = false) String sort,
                               @RequestParam(required = false) String size,
                               Model model) {
@@ -188,7 +188,7 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews/search")
-    public String searchReviews(@PageableDefault(size = 1)
+    public String searchReviews(@PageableDefault(size = 10)
                                     @SortDefault.SortDefaults({
                                             @SortDefault(sort = "createDate", direction = Sort.Direction.DESC)
                                     })

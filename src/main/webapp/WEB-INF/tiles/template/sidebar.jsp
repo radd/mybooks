@@ -58,22 +58,26 @@
 			</c:if>
 			<li>
 				<a href="<c:url value="/books" />">Książki</a>
+<c:if test="${auth.isLoggedIn()}">
 				<ul>
 					<li>
 						<a href="<c:url value="/books/add" />">Dodaj książkę</a>
 					</li>
 				</ul>
+</c:if>
 			</li>
 			<li>
 				<a href="<c:url value="/reviews" />">Recenzje</a>
 			</li>
 			<li>
 				<a href="<c:url value="/authors" />">Autorzy</a>
+				<c:if test="${auth.isLoggedIn()}">
 				<ul>
 					<li>
 						<a href="<c:url value="/authors/add" />">Dodaj autora</a>
 					</li>
 				</ul>
+				</c:if>
 			</li>
 			<li>
 				<a href="<c:url value="/books/search" />">Szukaj książki</a>

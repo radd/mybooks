@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -54,15 +53,20 @@ public class BookController {
     @Value("#{servletContext.contextPath}")
     private String servletContextPath;
 
-    @RequestMapping("/books")
-    public String tags(Model model) {
+    @GetMapping("/books")
+    public String books(@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+                              Model model) {
 
-        model.addAttribute("title", "All books");
+        Page<Book> books = bookRepo.findAll(pageable);
+        int page = pageable.getPageNumber() + 1;
+        int totalPage = books.getTotalPages();
+        if (page > totalPage)
+            return "404";
 
-        Collection<Book> books = bookRepo.findAll();
-
-        model.addAttribute("books", books);
-
+        model.addAttribute("title", "Książki | Strona " + page);
+        model.addAttribute("books", books.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("totalPage", totalPage);
 
         return "books";
     }
@@ -199,7 +203,7 @@ public class BookController {
     }
 
     @GetMapping("/books/search")
-    public String searchBooks(@PageableDefault(size = 1, sort = "title", direction = Sort.Direction.ASC) Pageable pageable,
+    public String searchBooks(@PageableDefault(size = 10, sort = "title", direction = Sort.Direction.ASC) Pageable pageable,
                               @RequestParam(required = false) String searchTerm,
                               Model model) {
 
