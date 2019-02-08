@@ -97,4 +97,66 @@
         </div>
     </section>
 
+    </br>
+    Ostatnio przeczytane książki: </br></br>
+
+    <section class="books">
+        <div class="book_main_list">
+            <c:forEach items="${voteRead}" var="vote" varStatus="tagStatus">
+                <c:set var="book" value="${vote.book}"></c:set>
+                <div class="book">
+                    <a href="/mybooks/book/${book.slug}">
+                        <img class="cover" alt="okładka" src=" ${book.cover}" />
+                        <div class="info">
+                            <h5> ${book.title}</h5>
+                            <div class="author"><c:forEach items="${book.authors}" var="author" varStatus="status"><c:if test="${status.index == 0}">${author.getDisplayName()}</c:if><c:if test="${status.index > 0}">, ${author.getDisplayName()}</c:if></c:forEach>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </c:forEach>
+        </div>
+    </section>
+
+    </br>
+    Aktualnie czytane książki: </br></br>
+
+    <section class="books">
+        <div class="book_main_list">
+            <c:forEach items="${voteReading}" var="vote" varStatus="tagStatus">
+                <c:set var="book" value="${vote.book}"></c:set>
+                <div class="book">
+                    <a href="/mybooks/book/${book.slug}">
+                        <img class="cover" alt="okładka" src=" ${book.cover}" />
+                        <div class="info">
+                            <h5> ${book.title}</h5>
+                            <div class="author"><c:forEach items="${book.authors}" var="author" varStatus="status"><c:if test="${status.index == 0}">${author.getDisplayName()}</c:if><c:if test="${status.index > 0}">, ${author.getDisplayName()}</c:if></c:forEach>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </c:forEach>
+        </div>
+    </section>
+
+    </br>
+    Chce przeczytać: </br></br>
+
+    <section class="books">
+        <div class="book_main_list">
+            <c:forEach items="${voteWantRead}" var="vote" varStatus="tagStatus">
+                <c:set var="book" value="${vote.book}"></c:set>
+                <div class="book">
+                    <a href="/mybooks/book/${book.slug}">
+                        <img class="cover" alt="okładka" src=" ${book.cover}" />
+                        <div class="info">
+                            <h5> ${book.title}</h5>
+                            <div class="author"><c:forEach items="${book.authors}" var="author" varStatus="status"><c:if test="${status.index == 0}">${author.getDisplayName()}</c:if><c:if test="${status.index > 0}">, ${author.getDisplayName()}</c:if></c:forEach>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </c:forEach>
+        </div>
+    </section>
 </div>

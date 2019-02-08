@@ -17,7 +17,7 @@
 
     </c:if>
     </br>
-
+    </br>
     Komentarze (<span id="commentCount"></span>):
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCommentModal">
        Dodaj komentarz
@@ -56,7 +56,7 @@
 
     </div>
 
-        <button type="button" id="moreComments" class="btn">Więcej</button>
+        <button type="button" id="moreComments" class="btn btn-primary">Więcej</button>
 
 
 <script type="text/javascript">
@@ -122,10 +122,15 @@ $(function() {
             commentsPage++;
             var output = "";
             $.each(res.data.content, function(index, c) {
-                output+= c.content + ", Autor: " + c.userName + ", Data: " + c.addDate + " <br />";
+                output+= "<div class='comment'>" +
+                    " <span class='author'> Autor: <a href='/mybooks/user/"+ c.userID +"'>" + c.userName +
+                    "</a></span><span class='data'> Data: " + c.addDate + "</span>" +
+                    "<p>" + c.content + "</p>" +
+                    "</div>";
             });
 
-            $('#comments').append(output);
+            //$('#comments').append(output);
+            $('#comments').prepend(output);
             $('#commentCount').text(res.data.totalCount);
 
             if(res.data.page === res.data.totalPage)

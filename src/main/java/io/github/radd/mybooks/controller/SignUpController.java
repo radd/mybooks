@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -30,16 +29,17 @@ public class SignUpController {
 
     @PostMapping("/signup")
     public String signUp(@ModelAttribute("user") @Valid UserSignUpDTO userDto,
-                         BindingResult result, HttpServletRequest req) {
-        User registered = new User();
+                         BindingResult result, HttpServletRequest req, Model model) {
+        User registered = null;
+        model.addAttribute("added", false);
+
         if (!result.hasErrors()) {
             registered = createUserAccount(userDto);
         }
-        if (registered == null) {
+        if (registered != null) {
+            model.addAttribute("added", true);
+        }
 
-        }
-        if (result.hasErrors()) {
-        }
 
 
         return "signup";

@@ -489,4 +489,33 @@ section.book_review .review-bottom .review-book-info {
 
 
 
+/* --------- Comment----------- */
 
+
+#comments .comment {
+    width: 100%;
+    padding: 15px 0;
+    border-bottom:1px solid #e7e7e7;
+}
+
+#comments .comment p {
+    width: 100%;
+    margin: 0;
+    maring-top:5px;
+}
+
+#comments .comment span {
+    width: 100%;
+    font-size: 14px;
+    color:#555;
+}
+#comments .comment .data {
+    margin-left:10px;
+}
+
+#moreComments {
+    text-align: center;
+    margin: 10px auto;
+    display: block;
+    padding: 10px 20px;
+}

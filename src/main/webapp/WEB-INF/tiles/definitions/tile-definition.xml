@@ -137,5 +137,11 @@
 		<put-attribute name="pagination" value="/WEB-INF/tiles/template/pagination.jsp" cascade="true" />
 	</definition>
 
+	<definition name="accessDenied" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/accessDenied.jsp" />
+	</definition>
 
+	<definition name="404" extends="baseLayout">
+		<put-attribute name="content" value="/WEB-INF/views/404.jsp" />
+	</definition>
 </tiles-definitions>

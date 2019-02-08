@@ -1,18 +1,12 @@
 package io.github.radd.mybooks.controller;
 
 import io.github.radd.mybooks.domain.Comment;
-import io.github.radd.mybooks.domain.Rating;
-import io.github.radd.mybooks.domain.dto.RatingDTO;
 import io.github.radd.mybooks.domain.repository.CommentRepository;
-import io.github.radd.mybooks.domain.repository.RatingRepository;
 import io.github.radd.mybooks.domain.rest.CommentRequest;
 import io.github.radd.mybooks.domain.rest.PageResponse;
 import io.github.radd.mybooks.service.impl.CommentService;
-import io.github.radd.mybooks.service.impl.RatingService;
-import io.github.radd.mybooks.utils.dto.ObjectMapperUtils;
 import io.github.radd.mybooks.utils.dto.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -40,7 +34,7 @@ public class CommentRestController {
     }
 
     @GetMapping("/get/{reviewID}")
-    public Response getComments(@PageableDefault(size = 1, sort = "addDate", direction = Sort.Direction.ASC) Pageable pageable,
+    public Response getComments(@PageableDefault(size = 5, sort = "addDate", direction = Sort.Direction.DESC) Pageable pageable,
                                     @RequestParam(required = false) String sort,
                                     @RequestParam(required = false) String size,
                                     @PathVariable Long reviewID,

@@ -8,11 +8,11 @@
 
             <img class="book-cover" src="${book.cover}"/> </br>
             Tytuł: ${book.title} </br>
-    Kategoria: <a href="/mybooks/cat/${book.category.slug}">${book.category.name}</a> </br>
-    Tagi:
-    <c:forEach items="${book.bookTags}" var="tag" varStatus="tagStatus">
-        <a href="/mybooks/tag/${tag.slug}">${tag.name}</a>,
+    Autor:
+    <c:forEach items="${book.authors}" var="author" varStatus="tagStatus">
+        <a href="/mybooks/author/${author.slug}">${author.getDisplayName()}</a>,
     </c:forEach><br />
+
     Ocena: ${book.stars}/6 <br />
     Liczba ocen: ${book.ratingCount}
 
@@ -55,12 +55,13 @@
 
 
     </br></br>
-            Opis: ${book.description} </br></br>
-            Autor:
-            <c:forEach items="${book.authors}" var="author" varStatus="tagStatus">
-    <a href="/mybooks/author/${author.slug}">${author.getDisplayName()}</a>,
-            </c:forEach>
-
+            Opis: ${book.description}</br> <br />
+    Kategoria: <a href="/mybooks/cat/${book.category.slug}">${book.category.name}</a> </br>
+    Tagi:
+    <c:forEach items="${book.bookTags}" var="tag" varStatus="tagStatus">
+        <a href="/mybooks/tag/${tag.slug}">#${tag.name}</a>,
+    </c:forEach><br />
+    Liczba stron: ${book.pages}</br>
 
     <c:if test="${auth.getUserInfo().isAdminOrModerator()}">
         </br>

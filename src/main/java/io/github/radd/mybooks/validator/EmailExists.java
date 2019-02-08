@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface EmailExists {
 
-    String message() default "Email exists";
+    String message() default "Podany email jest już zarejestrowany";
 
     Class<?>[] groups() default {};
 

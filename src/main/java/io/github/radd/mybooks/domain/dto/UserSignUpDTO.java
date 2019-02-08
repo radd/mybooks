@@ -10,12 +10,9 @@ import javax.validation.constraints.NotNull;
 @PasswordMatches
 public class UserSignUpDTO {
 
-    @NotNull
-    @NotEmpty(message = "{UserSignUp.name.NotEmpty}")
+
     private String name;
 
-    @NotNull
-    @NotEmpty(message = "{UserSignUp.lastName.NotEmpty}")
     private String lastName;
 
     @Email(message = "{UserSignUp.email.Email}")

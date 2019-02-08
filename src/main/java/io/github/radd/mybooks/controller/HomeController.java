@@ -129,10 +129,10 @@ public class HomeController {
     @GetMapping(value = "/access-denied")
     public String accessDenied(Model model) {
 
-        model.addAttribute("greeting", "Access denied");
-        return "foo";
+        return "accessDenied";
 
     }
+
 
     @RequestMapping("/foo")
     public String fooPage(Model model) {

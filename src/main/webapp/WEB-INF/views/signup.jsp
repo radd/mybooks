@@ -5,6 +5,12 @@
 
 <div class="col-md-10">
     <h3 class="my-4">Rejestracja</h3>
+
+    <c:if test="${added}">
+        Zarejestrowano. <a href="${pageContext.request.contextPath}/login">Zaloguj się</a>
+
+    </c:if>
+    <c:if test="${not added}">
             <c:if test="${not empty errorMsg}">
                 <div class="alert alert-danger">
                         ${errorMsg}<br />
@@ -40,5 +46,5 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Zarejestruj się</button>
             </form:form>
-
+    </c:if>
 </div>

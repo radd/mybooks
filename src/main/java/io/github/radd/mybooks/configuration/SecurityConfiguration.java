@@ -85,6 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 Object savedRequest = session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
                 String redirectUrl = (String) session.getAttribute("previousURL");
                 if (savedRequest == null && redirectUrl != null ) {
+                    redirectUrl = redirectUrl.contains("signup") ? redirectUrl.replace("signup" , "") : redirectUrl;
                     session.removeAttribute("previousURL");
                     getRedirectStrategy().sendRedirect(request, response, redirectUrl);
                     //TODO if admin and redirectUrl is homePage then redirect to admin panel

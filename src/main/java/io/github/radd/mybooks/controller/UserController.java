@@ -3,10 +3,12 @@ package io.github.radd.mybooks.controller;
 import io.github.radd.mybooks.domain.Rating;
 import io.github.radd.mybooks.domain.Review;
 import io.github.radd.mybooks.domain.User;
+import io.github.radd.mybooks.domain.Vote;
 import io.github.radd.mybooks.domain.dto.UserDTO;
 import io.github.radd.mybooks.domain.repository.RatingRepository;
 import io.github.radd.mybooks.domain.repository.ReviewRepository;
 import io.github.radd.mybooks.domain.repository.UserRepository;
+import io.github.radd.mybooks.domain.repository.VoteRepository;
 import io.github.radd.mybooks.service.impl.UserService;
 import io.github.radd.mybooks.utils.auth.AuthUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,10 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    VoteRepository voteRepo;
+
+
     @GetMapping("/user/{ID}")
     public String user(@PathVariable Long ID, Model model) {
 
@@ -61,9 +67,21 @@ public class UserController {
         Pageable ratingsPage = new PageRequest(0,4, Sort.Direction.DESC, "addDate");
         List<Rating> ratings = ratingRepo.findAllByUser(user, ratingsPage);
 
+        Pageable voteReadPage = new PageRequest(0,4, Sort.Direction.DESC, "addDate");
+        List<Vote> voteRead = voteRepo.findAllByUserAndVoteType(user, "READ", voteReadPage);
+
+        Pageable voteReadingPage = new PageRequest(0,4, Sort.Direction.DESC, "addDate");
+        List<Vote> voteReading = voteRepo.findAllByUserAndVoteType(user, "READING", voteReadingPage);
+
+        Pageable voteWantReadPage = new PageRequest(0,4, Sort.Direction.DESC, "addDate");
+        List<Vote> voteWantRead = voteRepo.findAllByUserAndVoteType(user, "WANT_READ", voteWantReadPage);
+
         model.addAttribute("user", user);
         model.addAttribute("reviews", reviews);
         model.addAttribute("ratings", ratings);
+        model.addAttribute("voteRead", voteRead);
+        model.addAttribute("voteReading", voteReading);
+        model.addAttribute("voteWantRead", voteWantRead);
 
         return "user";
     }
